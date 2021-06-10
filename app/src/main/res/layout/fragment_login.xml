@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/primary" />
+            android:background="@color/secondary" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,7 +90,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:background="@color/primary"
+                android:background="@drawable/ripple"
+                app:backgroundTint="@color/primary"
                 android:text="@string/log_in" />
 
         </LinearLayout>
@@ -99,12 +100,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
-            android:background="@color/primary"
+            android:background="@drawable/ripple"
             android:text="@string/create_account" />
 
     </LinearLayout>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
