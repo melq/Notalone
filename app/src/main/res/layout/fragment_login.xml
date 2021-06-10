@@ -103,6 +103,9 @@
             android:background="@drawable/ripple"
             android:text="@string/create_account" />
 
+<!--        app:backgroundTint="@null"-->
+<!--        android:textColor="@color/primary"-->
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
