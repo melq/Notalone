@@ -9,4 +9,5 @@
     <string name="account_image">人型の画像</string>
     <string name="user_id">USER ID</string>
     <string name="key_image">鍵の画像</string>
+    <string name="app_title">生存確認ボタン</string>
 </resources>
