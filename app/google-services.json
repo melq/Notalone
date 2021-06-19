@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "391069982250",
+    "project_id": "seizonkakunin-67959",
+    "storage_bucket": "seizonkakunin-67959.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391069982250:android:d4ed7c74163423d884ad53",
+        "android_client_info": {
+          "package_name": "com.melq.seizonkakuninbutton"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "391069982250-ejr6089k647df94d7ehjje8kq0qsol4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_iuUJ0qMGmLJklz92GMLU0uK8CB8ocps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "391069982250-ejr6089k647df94d7ehjje8kq0qsol4b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
