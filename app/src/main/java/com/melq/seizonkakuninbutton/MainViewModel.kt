@@ -4,22 +4,25 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
 import com.melq.seizonkakuninbutton.model.user.User
 import com.melq.seizonkakuninbutton.model.user.UserRepository
+import java.util.*
 
 class MainViewModel : ViewModel() {
     companion object{
         private val repository = UserRepository()
     }
+    var num = 0
 
     fun buttonPushed() {
-        repository.createUser("test_user", makeUser())
+        repository.createUser("test$num@example.com", makeUser(num))
+        num++
     }
 
-    fun makeUser(): User { // test
+    private fun makeUser(num: Int): User { // test
         return User(
-            "test1",
+            "test$num",
             mutableListOf(
-                Timestamp.now(),
-                Timestamp.now()
+                Timestamp(Date(121, 5, 20, 0, 0, 0)),
+                Timestamp(Date(121, 5, 20, num, 0, 15))
             )
         )
     }
