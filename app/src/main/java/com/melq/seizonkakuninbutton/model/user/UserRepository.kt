@@ -11,7 +11,7 @@ class UserRepository {
     }
     private val db = Firebase.firestore
 
-    fun createUser(id: String) {
+    fun createUser(id: String, user: User) {
         val tag = "CREATE_USER"
         val doc = db.collection(collectionName).document(id)
         doc.get()
@@ -20,20 +20,17 @@ class UserRepository {
                     Log.d(tag, "DocumentSnapshot exists data: ${document.data}")
                 } else {
                     Log.d(tag, "No such document")
+                    doc.set(user)
+                        .addOnSuccessListener {
+                            Log.d(tag, "Document created")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(tag, "create failed with", e)
+                        }
                 }
             }
             .addOnFailureListener { e ->
                 Log.w(tag, "create failed with", e)
             }
-    }
-
-    fun makeUser(): User { // test
-        return User(
-            "test1",
-            mutableListOf(
-                Timestamp.now(),
-                Timestamp.now()
-            )
-        )
     }
 }

@@ -18,7 +18,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         _binding = FragmentMainBinding.bind(view)
 
         binding.btMain.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+//            findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+            vm.buttonPushed()
         }
     }
 }
