@@ -33,4 +33,8 @@ class UserRepository {
                 Log.w(tag, "create failed with", e)
             }
     }
+
+    fun reportLiving(id: String, timestamp: Timestamp) {
+
+    }
 }

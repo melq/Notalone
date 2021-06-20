@@ -24,6 +24,4 @@
             android:textSize="64sp"/>
     </FrameLayout>
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
