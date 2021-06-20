@@ -1,10 +1,11 @@
-package com.melq.seizonkakuninbutton.model.data
+package com.melq.seizonkakuninbutton.model.user
 
 import android.util.Log
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class DataRepository {
+class UserRepository {
     companion object {
         const val collectionName = "data"
     }
@@ -24,5 +25,15 @@ class DataRepository {
             .addOnFailureListener { e ->
                 Log.w(tag, "create failed with", e)
             }
+    }
+
+    fun makeUser(): User { // test
+        return User(
+            "test1",
+            mutableListOf(
+                Timestamp.now(),
+                Timestamp.now()
+            )
+        )
     }
 }
