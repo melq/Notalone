@@ -2,6 +2,7 @@ package com.melq.seizonkakuninbutton.model.user
 
 import android.util.Log
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -35,6 +36,10 @@ class UserRepository {
     }
 
     fun reportLiving(id: String, timestamp: Timestamp) {
+        val tag = "REPORT_LIVING"
+        val doc = db.collection(collectionName).document(id)
 
+        doc.update("pushHistory", FieldValue.arrayUnion(timestamp))
+        Log.d(tag, "Add history: $timestamp")
     }
 }

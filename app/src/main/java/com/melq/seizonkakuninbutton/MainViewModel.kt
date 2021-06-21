@@ -9,8 +9,13 @@ class MainViewModel : ViewModel() {
     companion object{
         private val repository = UserRepository()
     }
-    val id: String = ""
-    val name: String = ""
+    var id: String = ""
+    var name: String = ""
+
+    fun setUserName(id: String, name: String) {
+        this.id = id
+        this.name = name
+    }
 
     fun buttonPushed() {
         if (id == "") return
