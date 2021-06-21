@@ -26,9 +26,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             2000
         )
 
-        /*binding.constraintLayout.setOnClickListener {
+        binding.constraintLayout.setOnClickListener {
             handler.removeCallbacksAndMessages(null)
             findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
-        }*/
+        }
     }
 }
