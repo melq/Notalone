@@ -7,8 +7,9 @@
     <string name="password">PASSWORD</string>
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="account_image">人型の画像</string>
-    <string name="user_id">USER ID</string>
+    <string name="user_id">e-mail (変更不可)</string>
     <string name="key_image">鍵の画像</string>
     <string name="app_title">生存確認ボタン</string>
     <string name="push">PUSH</string>
+    <string name="name">NAME</string>
 </resources>

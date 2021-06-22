@@ -56,6 +56,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="8dp"
+                    android:autofillHints="@string/name"
+                    android:hint="@string/name"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_perm_identity_vector"
+                    android:contentDescription="@string/account_image" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
                     android:autofillHints="@string/user_id"
                     android:hint="@string/user_id"
                     android:inputType="text" />
@@ -66,7 +90,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp">
+                android:layout_marginTop="16dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
