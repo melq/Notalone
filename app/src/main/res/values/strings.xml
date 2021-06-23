@@ -12,6 +12,7 @@
     <string name="log_in">LOG IN</string>
     <string name="push">PUSH</string>
     <string name="not_have_account">新規登録はこちら</string>
+    <string name="register">新規登録</string>
     <string name="name">表示名</string>
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="enter_info">必要な情報を入力してください</string>
