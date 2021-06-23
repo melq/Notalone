@@ -22,8 +22,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.btLogin.setOnClickListener {
             if (isFormEmpty()) return@setOnClickListener
         }
-        
-        binding.btCreateAccount.setOnClickListener {
+
+        binding.btCreateAccount.setOnClickListener { // 新規作成は別ファイルで
             if (isFormEmpty()) return@setOnClickListener
         }
     }
