@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.melq.seizonkakuninbutton.MainViewModel
 import com.melq.seizonkakuninbutton.R
@@ -20,17 +21,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         _binding = FragmentLoginBinding.bind(view)
 
         binding.btLogin.setOnClickListener {
-            if (isFormEmpty()) return@setOnClickListener
-        }
-    }
-
-    private fun isFormEmpty(): Boolean {
-        binding.run {
-            if (etEmail.text.isEmpty() || etPassword.text.isEmpty()) {
-                Snackbar.make(layout, R.string.enter_info, Snackbar.LENGTH_SHORT).show()
-                return true
+            binding.run {
+                if (etEmail.text.isBlank() || etPassword.text.isBlank()) {
+                    Snackbar.make(layout, R.string.enter_info, Snackbar.LENGTH_SHORT).show()
+                } else {
+                    vm.loginPushed()
+                }
             }
-            return false
+        }
+
+        binding.btCreateAccount.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_createFragment)
         }
     }
 }
