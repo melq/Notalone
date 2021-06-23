@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:backgroundTint="@color/primary"
         android:layout_margin="16dp"
         android:src="@drawable/ic_baseline_perm_identity_vector"
         android:contentDescription="@string/account_image" />
