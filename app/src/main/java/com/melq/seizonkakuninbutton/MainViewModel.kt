@@ -26,6 +26,10 @@ class MainViewModel : ViewModel() {
 
     }
 
+    fun createPushed() {
+
+    }
+
     fun createUser() {
         if (id == "" || name == "") return
         repository.createUser(
