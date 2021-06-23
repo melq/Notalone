@@ -30,5 +30,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 //            findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
             vm.buttonPushed()
         }
+
+        binding.btUserInfo.setOnClickListener{
+            findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+        }
     }
 }
