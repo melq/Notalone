@@ -1,16 +1,17 @@
 <resources>
     <string name="app_name">SeizonKakuninButton</string>
+    <string name="app_title">生存確認ボタン</string>
     <string name="splash">splash</string>
     <string name="login">login</string>
     <string name="main">main</string>
-    <string name="log_in">LOG IN</string>
-    <string name="password">PASSWORD</string>
-    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="password">パスワード</string>
     <string name="account_image">人型の画像</string>
     <string name="user_id">e-mail (変更不可)</string>
     <string name="key_image">鍵の画像</string>
-    <string name="app_title">生存確認ボタン</string>
+    <string name="log_in">LOG IN</string>
     <string name="push">PUSH</string>
-    <string name="name">NAME</string>
+    <string name="register">新規登録はこちら</string>
+    <string name="name">表示名</string>
+    <string name="create_account">CREATE ACCOUNT</string>
     <string name="enter_info">必要な情報を入力してください</string>
 </resources>
