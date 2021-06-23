@@ -12,4 +12,5 @@
     <string name="app_title">生存確認ボタン</string>
     <string name="push">PUSH</string>
     <string name="name">NAME</string>
+    <string name="enter_info">必要な情報を入力してください</string>
 </resources>

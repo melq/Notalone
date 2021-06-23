@@ -22,6 +22,10 @@ class MainViewModel : ViewModel() {
         repository.reportLiving(id, Timestamp.now())
     }
 
+    fun loginPushed() {
+
+    }
+
     fun createUser() {
         if (id == "" || name == "") return
         repository.createUser(
