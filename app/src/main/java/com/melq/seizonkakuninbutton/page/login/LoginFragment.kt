@@ -22,15 +22,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.btLogin.setOnClickListener {
             if (isFormEmpty()) return@setOnClickListener
         }
-
-        binding.btCreateAccount.setOnClickListener { // 新規作成は別ファイルで
-            if (isFormEmpty()) return@setOnClickListener
-        }
     }
 
     private fun isFormEmpty(): Boolean {
         binding.run {
-            if (etName.text.isEmpty() || etEmail.text.isEmpty() || etPassword.text.isEmpty()) {
+            if (etEmail.text.isEmpty() || etPassword.text.isEmpty()) {
                 Snackbar.make(layout, R.string.enter_info, Snackbar.LENGTH_SHORT).show()
                 return true
             }
