@@ -1,5 +1,6 @@
 package com.melq.seizonkakuninbutton
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
 import com.melq.seizonkakuninbutton.model.user.User
@@ -12,6 +13,8 @@ class MainViewModel : ViewModel() {
     var id: String = ""
     var name: String = ""
 
+    var eMessage: MutableLiveData<Int> = MutableLiveData(0)
+
     fun setUserName(id: String, name: String) {
         this.id = id
         this.name = name
@@ -22,8 +25,14 @@ class MainViewModel : ViewModel() {
         repository.reportLiving(id, Timestamp.now())
     }
 
-    fun loginPushed() {
-
+    fun loginPushed(id: String) {
+        val name = repository.getUserName(id)
+        if (name.isNotBlank()) {
+            setUserName(id, name)
+            // ログイン処理を書く
+        } else {
+            eMessage.value = R.string.not_registered
+        }
     }
 
     fun createPushed() {

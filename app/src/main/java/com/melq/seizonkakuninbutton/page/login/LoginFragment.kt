@@ -25,7 +25,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 if (etEmail.text.isBlank() || etPassword.text.isBlank()) {
                     Snackbar.make(layout, R.string.enter_info, Snackbar.LENGTH_SHORT).show()
                 } else {
-                    vm.loginPushed()
+                    vm.loginPushed(etEmail.text.toString())
+                    vm.eMessage.observe(viewLifecycleOwner) {
+                        if (it != 0)
+                            Snackbar.make(binding.layout, it, Snackbar.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

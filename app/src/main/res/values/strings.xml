@@ -16,4 +16,5 @@
     <string name="name">表示名</string>
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="enter_info">必要な情報を入力してください</string>
+    <string name="not_registered">そのメールアドレスは登録されていません</string>
 </resources>
