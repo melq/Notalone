@@ -5,8 +5,6 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class UserRepository {
     companion object {
@@ -18,21 +16,19 @@ class UserRepository {
         val tag = "GET_USER_NAME"
         var name = ""
         val doc = db.collection(collectionName).document(id)
-        GlobalScope.launch {
-            doc.get()
-                .addOnSuccessListener { document ->
-                    if (document.data != null) {
-                        Log.d(tag, "DocumentSnapshot exists data: ${document.data}")
-                        name = document.data!!.toUser().name
-                        onSuccess(name)
-                    } else {
-                        Log.d(tag, "no such document")
-                    }
+        doc.get()
+            .addOnSuccessListener { document ->
+                if (document.data != null) {
+                    Log.d(tag, "DocumentSnapshot exists data: ${document.data}")
+                    name = document.data!!.toUser().name
+                } else {
+                    Log.d(tag, "no such document")
                 }
-                .addOnFailureListener { e ->
-                    Log.d(tag, "get failed with", e)
-                }
-        }
+                onSuccess(name)
+            }
+            .addOnFailureListener { e ->
+                Log.d(tag, "get failed with", e)
+            }
         return name
     }
 

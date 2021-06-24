@@ -33,7 +33,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             vm.buttonPushed()
         }
 
-        binding.btUserInfo.setOnClickListener{
+        binding.btUserInfo.setOnClickListener{ // ログインしているかどうかで遷移先を変更する
             findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
         }
     }
