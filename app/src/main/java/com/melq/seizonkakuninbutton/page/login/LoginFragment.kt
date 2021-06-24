@@ -29,6 +29,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         vm.eMessage.value = 0
                     }
                 }
+                vm.done.observe(viewLifecycleOwner) {
+                    if (it == true) {
+                        findNavController().popBackStack()
+                        vm.done.value = false
+                    }
+                }
             }
         }
 

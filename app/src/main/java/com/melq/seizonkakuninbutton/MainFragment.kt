@@ -24,10 +24,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
 
-        vm.setUserName("test0@example.com", "test0")
-
         binding.btMain.setOnClickListener {
-//            findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
             vm.buttonPushed()
         }
 

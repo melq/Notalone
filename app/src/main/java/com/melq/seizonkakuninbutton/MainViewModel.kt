@@ -1,10 +1,16 @@
 package com.melq.seizonkakuninbutton
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
 import com.melq.seizonkakuninbutton.model.user.User
 import com.melq.seizonkakuninbutton.model.user.UserRepository
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MainViewModel : ViewModel() {
     companion object{
@@ -14,6 +20,7 @@ class MainViewModel : ViewModel() {
     var name: String = ""
 
     var eMessage: MutableLiveData<Int> = MutableLiveData(0)
+    var done: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun setUserName(id: String, name: String) {
         this.id = id
@@ -31,14 +38,17 @@ class MainViewModel : ViewModel() {
             return
         }
 
-        val name = repository.getUserName(id)
-        if (name.isNotBlank()) {
-            setUserName(id, name)
+        repository.getUserName(id) { name ->
+            if (name.isNotBlank()) {
+                Log.d("LOGIN_PUSHED", "$id, $name")
+                setUserName(id, name)
 
-            // ログイン処理を書く
+                // ログイン処理を書く
 
-        } else {
-            eMessage.value = R.string.not_registered
+                done.value = true
+            } else {
+                eMessage.value = R.string.not_registered
+            }
         }
     }
 
