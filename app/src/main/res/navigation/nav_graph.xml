@@ -22,7 +22,7 @@
         android:id="@+id/mainFragment"
         android:name="com.melq.seizonkakuninbutton.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/activity_main">
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -48,5 +48,13 @@
         android:id="@+id/createFragment"
         android:name="com.melq.seizonkakuninbutton.page.create.CreateFragment"
         android:label="CreateFragment"
-        tools:layout="@layout/fragment_create"/>
+        tools:layout="@layout/fragment_create">
+        <action
+            android:id="@+id/action_createFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 </navigation>

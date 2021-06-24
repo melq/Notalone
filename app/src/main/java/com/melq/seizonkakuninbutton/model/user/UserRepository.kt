@@ -36,7 +36,7 @@ class UserRepository {
         return name
     }
 
-    fun createUser(id: String, user: User) {
+    fun createUser(id: String, user: User, onSuccess: () -> Unit) {
         val tag = "CREATE_USER"
         val doc = db.collection(collectionName).document(id)
         doc.get()
@@ -48,6 +48,7 @@ class UserRepository {
                     doc.set(user)
                         .addOnSuccessListener {
                             Log.d(tag, "Document created")
+                            onSuccess()
                         }
                         .addOnFailureListener { e ->
                             Log.w(tag, "create failed with", e)

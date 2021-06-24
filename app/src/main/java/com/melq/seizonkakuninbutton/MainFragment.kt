@@ -1,6 +1,7 @@
 package com.melq.seizonkakuninbutton
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
@@ -23,6 +24,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
+
+        Log.d("MAIN_FRAGMENT", "${vm.id}, ${vm.name}")
+
+        // vm.idとvm.nameが空でなければ設定に保存する処理を書く
 
         binding.btMain.setOnClickListener {
             vm.buttonPushed()

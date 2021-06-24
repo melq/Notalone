@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.melq.seizonkakuninbutton.MainViewModel
 import com.melq.seizonkakuninbutton.R
@@ -26,6 +27,12 @@ class CreateFragment: Fragment(R.layout.fragment_create) {
                     if (it != 0) {
                         Snackbar.make(binding.layout, it, Snackbar.LENGTH_SHORT).show()
                         vm.eMessage.value = 0
+                    }
+                }
+                vm.done.observe(viewLifecycleOwner) {
+                    if (it == true) {
+                        vm.done.value = false
+                        findNavController().navigate(R.id.action_createFragment_to_mainFragment)
                     }
                 }
             }

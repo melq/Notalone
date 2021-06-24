@@ -3,14 +3,9 @@ package com.melq.seizonkakuninbutton
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.firebase.Timestamp
 import com.melq.seizonkakuninbutton.model.user.User
 import com.melq.seizonkakuninbutton.model.user.UserRepository
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class MainViewModel : ViewModel() {
     companion object{
@@ -60,10 +55,7 @@ class MainViewModel : ViewModel() {
 
         // アカウント作成処理を書く
 
-        createUser()
-    }
-
-    fun createUser() {
+        setUserName(id, name)
         if (id == "" || name == "") return
         repository.createUser(
             id,
@@ -72,6 +64,8 @@ class MainViewModel : ViewModel() {
                 mutableListOf(
                     Timestamp.now()
                 )
-            ))
+            )) {
+            done.value = true
+        }
     }
 }
