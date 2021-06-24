@@ -25,7 +25,12 @@ class MainViewModel : ViewModel() {
         repository.reportLiving(id, Timestamp.now())
     }
 
-    fun loginPushed(id: String) {
+    fun loginPushed(id: String, password: String) {
+        if (id.isBlank() || password.isBlank()) {
+            eMessage.value = R.string.enter_info
+            return
+        }
+
         val name = repository.getUserName(id)
         if (name.isNotBlank()) {
             setUserName(id, name)
