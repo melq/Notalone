@@ -34,14 +34,23 @@ class MainViewModel : ViewModel() {
         val name = repository.getUserName(id)
         if (name.isNotBlank()) {
             setUserName(id, name)
+
             // ログイン処理を書く
+
         } else {
             eMessage.value = R.string.not_registered
         }
     }
 
-    fun createPushed() {
+    fun createPushed(name: String, id: String, password: String) {
+        if (name.isBlank() || id.isBlank() || password.isBlank()) {
+            eMessage.value = R.string.enter_info
+            return
+        }
 
+        // アカウント作成処理を書く
+
+        createUser()
     }
 
     fun createUser() {
