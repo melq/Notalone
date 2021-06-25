@@ -4,12 +4,15 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.melq.seizonkakuninbutton.model.user.User
 import com.melq.seizonkakuninbutton.model.user.UserRepository
 
 class MainViewModel : ViewModel() {
     companion object{
         private val repository = UserRepository()
+        private val auth = Firebase.auth
     }
     var id: String = ""
     var name: String = ""
