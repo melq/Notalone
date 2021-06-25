@@ -18,16 +18,23 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requireActivity().onBackPressedDispatcher.addCallback(this) {  }
+        requireActivity().onBackPressedDispatcher.addCallback(this) {  } // FEATURE: 戻るで終了するようにする
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val user = vm.auth.currentUser
+        if (user != null) {
+            Log.d("MAIN_FRAGMENT", "email: ${user.email}, uid: ${user.uid}")
+            vm.user = user
+        } else {
+            findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
-
-        Log.d("MAIN_FRAGMENT", "${vm.id}, ${vm.name}")
-
-        // vm.idとvm.nameが空でなければ設定に保存する処理を書く
 
         binding.btMain.setOnClickListener {
             vm.buttonPushed()

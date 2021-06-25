@@ -65,8 +65,9 @@ class UserRepository {
     }
 
     private fun Map<String, Any>.toUser(): User {
+        val email = this["email"] as String
         val name = this["name"] as String
         val history = this["pushHistory"] as MutableList<Timestamp>
-        return User(name, history)
+        return User(email, name, history)
     }
 }

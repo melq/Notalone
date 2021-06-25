@@ -16,5 +16,9 @@
     <string name="name">表示名</string>
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="enter_info">必要な情報を入力してください</string>
+    <string name="pass_length">パスワードは6文字以上にしてください</string>
     <string name="not_registered">そのメールアドレスは登録されていません</string>
+    <string name="err_net">ネットワークエラー</string>
+    <string name="exist_address">登録済みのメールアドレスです</string>
+    <string name="error_occured">エラーが発生しました</string>
 </resources>
