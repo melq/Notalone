@@ -114,9 +114,10 @@ class MainViewModel : ViewModel() {
 
     fun updateNameClicked(newName: String) {
         if (newName != name.value) {
-
-            name.value = newName
-            eMessage.value = R.string.name_updated
+            repository.updateName(user.uid, newName) {
+                name.value = newName
+                eMessage.value = R.string.name_updated
+            }
         } else {
             eMessage.value = R.string.same_name
         }

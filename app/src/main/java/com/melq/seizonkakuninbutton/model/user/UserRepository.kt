@@ -64,6 +64,19 @@ class UserRepository {
         Log.d(tag, "Add history: $timestamp")
     }
 
+    fun updateName(id: String, newName: String, onSuccess: () -> Unit) {
+        val tag = "UPDATE_NAME"
+        val doc = db.collection(collectionName).document(id)
+        doc.update("name", newName)
+            .addOnSuccessListener {
+                Log.d(tag, "DocumentSnapshot successfully updated!")
+                onSuccess()
+            }
+            .addOnFailureListener { e ->
+                Log.w(tag, "Error updating document", e)
+            }
+    }
+
     private fun Map<String, Any>.toUser(): User {
         val email = this["email"] as String
         val name = this["name"] as String
