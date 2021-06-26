@@ -3,6 +3,7 @@ package com.melq.seizonkakuninbutton
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.*
@@ -109,6 +110,16 @@ class MainViewModel : ViewModel() {
 
     fun getName(): String {
         return repository.getUserName(user.uid) { name.value = it }
+    }
+
+    fun updateNameClicked(newName: String) {
+        if (newName != name.value) {
+
+            name.value = newName
+            eMessage.value = R.string.name_updated
+        } else {
+            eMessage.value = R.string.same_name
+        }
     }
 
     fun logoutClicked() {

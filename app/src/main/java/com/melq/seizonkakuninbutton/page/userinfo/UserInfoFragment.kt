@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.melq.seizonkakuninbutton.MainViewModel
 import com.melq.seizonkakuninbutton.R
 import com.melq.seizonkakuninbutton.databinding.FragmentUserInfoBinding
@@ -25,6 +26,16 @@ class UserInfoFragment : Fragment(R.layout.fragment_user_info) {
         }
         binding.etEmail.setText(vm.user.email)
 
+        binding.btUpdate.setOnClickListener {
+            vm.updateNameClicked(binding.etName.text.toString())
+            vm.eMessage.observe(viewLifecycleOwner) {
+                if (it != 0) {
+                    Snackbar.make(view, it, Snackbar.LENGTH_SHORT).show()
+                    vm.eMessage.value = 0
+                }
+            }
+        }
+
         binding.btLogout.setOnClickListener {
             vm.logoutClicked()
             vm.done.observe(viewLifecycleOwner) {
@@ -34,5 +45,7 @@ class UserInfoFragment : Fragment(R.layout.fragment_user_info) {
                 }
             }
         }
+
+        // FEATURE: パスワード変更機能を付ける
     }
 }
