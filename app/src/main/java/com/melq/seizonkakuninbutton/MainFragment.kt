@@ -28,8 +28,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         val user = vm.auth.currentUser
         if (user != null) {
             Log.d("MAIN_FRAGMENT", "email: ${user.email}, uid: ${user.uid}")
-            vm.user = user
         } else {
+            Log.d("MAIN_FRAGMENT", "no userdata")
             findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
         }
     }
@@ -42,8 +42,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             vm.buttonPushed()
         }
 
-        binding.btUserInfo.setOnClickListener{ // FEATURE: ログインしているかどうかで遷移先を変更する
-            findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+        binding.btUserInfo.setOnClickListener{
+            if (vm.auth.currentUser != null) {
+                findNavController().navigate(R.id.action_mainFragment_to_userInfoFragment)
+            } else
+                findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
         }
     }
 }

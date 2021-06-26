@@ -16,9 +16,10 @@ class MainViewModel : ViewModel() {
         private val repository = UserRepository()
     }
 
-    lateinit var user: FirebaseUser
     val auth: FirebaseAuth = Firebase.auth
+    val user: FirebaseUser get() = auth.currentUser!!
 
+    var name: MutableLiveData<String> = MutableLiveData("")
     var eMessage: MutableLiveData<Int> = MutableLiveData(0)
     var done: MutableLiveData<Boolean> = MutableLiveData(false)
 
@@ -37,7 +38,6 @@ class MainViewModel : ViewModel() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d(tag, "signInWithEmail: success")
-                    user = auth.currentUser!!
                     done.value = true
                 } else {
                     when (task.exception) {
@@ -86,7 +86,6 @@ class MainViewModel : ViewModel() {
                                 Timestamp.now()
                             )
                         )) {
-                        user = auth.currentUser!!
                         done.value = true
                     }
                 } else {
@@ -106,5 +105,14 @@ class MainViewModel : ViewModel() {
                     }
                 }
             }
+    }
+
+    fun getName(): String {
+        return repository.getUserName(user.uid) { name.value = it }
+    }
+
+    fun logoutClicked() {
+        auth.signOut()
+        done.value = true
     }
 }
