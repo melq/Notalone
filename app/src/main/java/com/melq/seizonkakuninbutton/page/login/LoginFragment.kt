@@ -25,14 +25,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 vm.loginPushed(etEmail.text.toString(), etPassword.text.toString())
                 vm.eMessage.observe(viewLifecycleOwner) {
                     if (it != 0) {
-                        Snackbar.make(binding.layout, it, Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(view, it, Snackbar.LENGTH_SHORT).show()
                         vm.eMessage.value = 0
                     }
                 }
                 vm.done.observe(viewLifecycleOwner) {
                     if (it == true) {
-                        vm.done.value = false
+                        Snackbar.make(view,
+                            "${vm.auth.currentUser!!.email}${getString(R.string.success_login)}",
+                            Snackbar.LENGTH_LONG).show()
                         findNavController().popBackStack()
+                        vm.done.value = false
                     }
                 }
             }

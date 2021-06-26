@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.Timestamp
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.melq.seizonkakuninbutton.model.user.User
@@ -28,23 +26,40 @@ class MainViewModel : ViewModel() {
         repository.reportLiving(user.uid, Timestamp.now())
     }
 
-    fun loginPushed(id: String, password: String) {
-        if (id.isBlank() || password.isBlank()) {
+    fun loginPushed(email: String, password: String) {
+        val tag = "LOGIN_PUSHED"
+        if (email.isBlank() || password.isBlank()) {
             eMessage.value = R.string.enter_info
             return
         }
 
-        repository.getUserName(id) { name ->
-            if (name.isNotBlank()) {
-                Log.d("LOGIN_PUSHED", "$id, $name")
-
-                // ログイン処理を書く
-
-                done.value = true
-            } else {
-                eMessage.value = R.string.not_registered
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(tag, "signInWithEmail: success")
+                    user = auth.currentUser!!
+                    done.value = true
+                } else {
+                    when (task.exception) {
+                        is FirebaseNetworkException -> {
+                            Log.w(tag, "signInWithEmail: failure", task.exception)
+                            eMessage.value = R.string.err_net
+                        }
+                        is FirebaseAuthInvalidUserException -> {
+                            Log.w(tag, "signInWithEmail: failure", task.exception)
+                            eMessage.value = R.string.err_not_exist
+                        }
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            Log.w(tag, "signInWithEmail: failure", task.exception)
+                            eMessage.value = R.string.err_incorrect
+                        }
+                        else -> {
+                            Log.w(tag, "signInWithEmail: failure", task.exception)
+                            eMessage.value = R.string.err_occured
+                        }
+                    }
+                }
             }
-        }
     }
 
     fun createPushed(name: String, email: String, password: String) {
@@ -86,7 +101,7 @@ class MainViewModel : ViewModel() {
                         }
                         else -> {
                             Log.w(tag, "signInWithEmail: failure", task.exception)
-                            eMessage.value = R.string.error_occured
+                            eMessage.value = R.string.err_occured
                         }
                     }
                 }

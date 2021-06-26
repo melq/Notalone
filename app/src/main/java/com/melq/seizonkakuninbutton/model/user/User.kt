@@ -9,6 +9,7 @@ class User (
 ) {
     override fun toString(): String {
         return hashMapOf(
+            "email" to email,
             "name" to name,
             "history" to pushHistory.toString()
         ).toString()

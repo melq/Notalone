@@ -30,9 +30,11 @@ class CreateFragment: Fragment(R.layout.fragment_create) {
                     }
                 }
                 vm.done.observe(viewLifecycleOwner) {
-                    if (it == true) {
-                        vm.done.value = false
+                    if (it == true) {Snackbar.make(view,
+                        "${vm.auth.currentUser!!.email}${getString(R.string.success_login)}",
+                        Snackbar.LENGTH_LONG).show()
                         findNavController().navigate(R.id.action_createFragment_to_mainFragment)
+                        vm.done.value = false
                     }
                 }
             }
