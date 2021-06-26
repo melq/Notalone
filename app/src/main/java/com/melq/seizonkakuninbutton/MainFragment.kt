@@ -18,7 +18,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requireActivity().onBackPressedDispatcher.addCallback(this) {  } // FEATURE: 戻るで終了するようにする
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            activity?.finish()
+        }
     }
 
     override fun onStart() {
