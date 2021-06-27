@@ -7,11 +7,18 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 
 class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val requestCode = intent!!.getIntExtra("RequestCode", 0)
-        val pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val intentToMainActivity = Intent(context, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            requestCode,
+            intentToMainActivity,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
         val channelId = context!!.getString(R.string.app_name)
         val title = context.getString(R.string.app_title)
@@ -34,6 +41,7 @@ class NotificationReceiver : BroadcastReceiver() {
             .setContentText(message)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+            .setWhen(System.currentTimeMillis())
             .build()
 
         notificationManager.notify(R.string.app_name, notification)

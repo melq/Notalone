@@ -1,20 +1,28 @@
 package com.melq.seizonkakuninbutton
 
+import android.app.AlarmManager
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.melq.seizonkakuninbutton.databinding.FragmentMainBinding
+import java.util.*
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val vm: MainViewModel by activityViewModels()
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = _binding!!
+
+    lateinit var am: AlarmManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +47,26 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
 
-        val intent = Intent(context, MainActivity::class.java)
-        NotificationReceiver().onReceive(context, intent)
+        val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(R.string.app_name)
 
         binding.btMain.setOnClickListener {
-            vm.buttonPushed()
+//            vm.buttonPushed()
+
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = System.currentTimeMillis()
+            calendar.add(Calendar.SECOND, 5)
+
+            val requestCode = 1
+            val pendingIntent = PendingIntent.getBroadcast(
+                context,
+                requestCode,
+                Intent(context, NotificationReceiver::class.java),
+                0
+            )
+
+            am = context?.getSystemService()!!
+            am.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
         }
 
         binding.btUserInfo.setOnClickListener{
