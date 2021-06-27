@@ -1,5 +1,6 @@
 package com.melq.seizonkakuninbutton
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -37,6 +38,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
+
+        val intent = Intent(context, MainActivity::class.java)
+        NotificationReceiver().onReceive(context, intent)
 
         binding.btMain.setOnClickListener {
             vm.buttonPushed()

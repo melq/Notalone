@@ -29,4 +29,5 @@
     <string name="update">更新</string>
     <string name="same_name">表示名に変更がありません</string>
     <string name="name_updated">表示名を更新しました</string>
+    <string name="notification_text">ボタンを押す時間です！</string>
 </resources>
