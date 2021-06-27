@@ -23,7 +23,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         }
         handler.postDelayed(
             runnable,
-            2000
+            1300
         )
 
         binding.constraintLayout.setOnClickListener {

@@ -47,26 +47,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
 
-        val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.cancel(R.string.app_name)
-
         binding.btMain.setOnClickListener {
-//            vm.buttonPushed()
-
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = System.currentTimeMillis()
-            calendar.add(Calendar.SECOND, 5)
-
-            val requestCode = 1
-            val pendingIntent = PendingIntent.getBroadcast(
-                context,
-                requestCode,
-                Intent(context, NotificationReceiver::class.java),
-                0
-            )
-
-            am = context?.getSystemService()!!
-            am.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+            vm.buttonPushed()
+            setNotification()
         }
 
         binding.btUserInfo.setOnClickListener{
@@ -75,5 +58,26 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             } else
                 findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
         }
+    }
+
+    private fun setNotification() {
+        val notificationManager =
+            context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(R.string.app_name)
+
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+        calendar.add(Calendar.HOUR, 12)
+
+        val requestCode = 1
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            requestCode,
+            Intent(context, NotificationReceiver::class.java),
+            0
+        )
+
+        am = context?.getSystemService()!!
+        am.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 }

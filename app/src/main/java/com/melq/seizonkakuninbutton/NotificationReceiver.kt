@@ -7,7 +7,8 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -35,15 +36,19 @@ class NotificationReceiver : BroadcastReceiver() {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
 
-        val notification = Notification.Builder(context, channelId)
-            .setSmallIcon(R.drawable.ic_baseline_account_circle_vector)
-            .setContentTitle(title)
+        val calendar = Calendar.getInstance()
+        val now = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
+
+        val builder = Notification.Builder(context, channelId)
+            .setSmallIcon(R.drawable.ic_baseline_perm_identity_vector)
+            .setContentTitle(now)
             .setContentText(message)
+            .setColor(context.getColor(R.color.secondary))
             .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
             .setWhen(System.currentTimeMillis())
+            .setAutoCancel(true)
             .build()
 
-        notificationManager.notify(R.string.app_name, notification)
+        notificationManager.notify(R.string.app_name, builder)
     }
 }
