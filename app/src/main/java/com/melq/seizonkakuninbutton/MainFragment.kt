@@ -49,7 +49,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         binding.btMain.setOnClickListener {
 //            vm.buttonPushed()
-            setNotification()
+            NotificationReceiver.setNotification(context)
         }
 
         binding.btUserInfo.setOnClickListener{
@@ -60,27 +60,5 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
 
         // FEATURE: 見る側の画面も追加する
-    }
-
-    private fun setNotification() { // context含むからViewModelに渡せない、どこに置くのが正解？
-                                    // 通知から操作するときの関数と統合したい
-        val notificationManager =
-            context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.cancel(R.string.app_name)
-
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.add(Calendar.SECOND, 3)
-
-        val requestCode = 1
-        val pendingIntent = PendingIntent.getBroadcast(
-            context,
-            requestCode,
-            Intent(context, NotificationReceiver::class.java).apply { putExtra("RequestCode", 1) },
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        am = context?.getSystemService()!!
-        am.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 }

@@ -18,6 +18,28 @@ import com.melq.seizonkakuninbutton.model.user.UserRepository
 import java.util.*
 
 class NotificationReceiver : BroadcastReceiver() {
+    companion object {
+        fun setNotification(context: Context?) { // context含むからViewModelに渡せない、どこに置くのが正解？
+            val notificationManager =
+                context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.cancel(R.string.app_name)
+
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = System.currentTimeMillis()
+            calendar.add(Calendar.SECOND, 3)
+
+            val pendingIntent = PendingIntent.getBroadcast(
+                context,
+                1,
+                Intent(context, NotificationReceiver::class.java).apply { putExtra("RequestCode", 1) },
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+
+            val am: AlarmManager = context.getSystemService()!!
+            am.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        }
+    }
+
     override fun onReceive(context: Context?, intent: Intent?) {
         val requestCode = intent!!.getIntExtra("RequestCode", 0)
 
@@ -89,24 +111,5 @@ class NotificationReceiver : BroadcastReceiver() {
         notificationManager.notify(R.string.app_name, builder)
     }
 
-    private fun setNotification(context: Context?) {
-        val notificationManager =
-            context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.cancel(R.string.app_name)
 
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.add(Calendar.SECOND, 3)
-
-        val requestCode = 1
-        val pendingIntent = PendingIntent.getBroadcast(
-            context,
-            requestCode,
-            Intent(context, NotificationReceiver::class.java).apply { putExtra("RequestCode", 1) },
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        val am: AlarmManager = context.getSystemService()!!
-        am.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-    }
 }
