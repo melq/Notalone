@@ -10,7 +10,6 @@ import com.melq.seizonkakuninbutton.MainViewModel
 import com.melq.seizonkakuninbutton.R
 import com.melq.seizonkakuninbutton.databinding.FragmentHistoryBinding
 import java.util.*
-import kotlin.time.hours
 
 class HistoryFragment : Fragment(R.layout.fragment_history) {
     private val vm: MainViewModel by activityViewModels()
