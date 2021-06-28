@@ -31,4 +31,5 @@
     <string name="name_updated">表示名を更新しました</string>
     <string name="notification_text">ボタンを押す時間です！</string>
     <string name="push_button">ここで押しちゃう！</string>
+    <string name="button_pushed">ボタンを押しました！</string>
 </resources>

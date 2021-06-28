@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -48,7 +49,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         _binding = FragmentMainBinding.bind(view)
 
         binding.btMain.setOnClickListener {
-//            vm.buttonPushed()
+            vm.buttonPushed()
+            val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
+            notificationManagerCompat.cancel(R.string.app_name)
+
             NotificationReceiver.setNotification(context)
         }
 

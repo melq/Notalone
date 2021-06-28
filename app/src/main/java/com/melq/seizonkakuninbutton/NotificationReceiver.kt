@@ -7,8 +7,8 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
 import com.google.firebase.FirebaseApp
 import com.google.firebase.Timestamp
@@ -20,13 +20,9 @@ import java.util.*
 class NotificationReceiver : BroadcastReceiver() {
     companion object {
         fun setNotification(context: Context?) { // context含むからViewModelに渡せない、どこに置くのが正解？
-            val notificationManager =
-                context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.cancel(R.string.app_name)
-
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = System.currentTimeMillis()
-            calendar.add(Calendar.SECOND, 3)
+            calendar.add(Calendar.HOUR, 12)
 
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
@@ -35,18 +31,36 @@ class NotificationReceiver : BroadcastReceiver() {
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
 
-            val am: AlarmManager = context.getSystemService()!!
+            val am: AlarmManager = context!!.getSystemService()!!
             am.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
         }
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        val requestCode = intent!!.getIntExtra("RequestCode", 0)
+        val channelId = context!!.getString(R.string.app_name)
+        val title = context.getString(R.string.app_title)
+        val message = context.getString(R.string.notification_text)
 
+        val channel = NotificationChannel(
+            channelId,
+            title,
+            NotificationManager.IMPORTANCE_DEFAULT
+        ).apply {
+            description = message
+        }
+
+        val requestCode = intent!!.getIntExtra("RequestCode", 0)
         if (requestCode == 2) {
-            val notificationManager =
-                context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.cancel(R.string.app_name)
+            val builder = NotificationCompat.Builder(context, channelId)
+                .setSmallIcon(R.drawable.ic_baseline_perm_identity_vector)
+                .setContentText(context.getString(R.string.button_pushed))
+                .setColor(context.getColor(R.color.secondary))
+                .setWhen(System.currentTimeMillis())
+                .setAutoCancel(true)
+                .setTimeoutAfter(1000)
+                .build()
+            val notificationManagerCompat = NotificationManagerCompat.from(context)
+            notificationManagerCompat.notify(R.string.app_name, builder)
 
             FirebaseApp.initializeApp(context)
             val user = Firebase.auth.currentUser
@@ -77,21 +91,6 @@ class NotificationReceiver : BroadcastReceiver() {
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        val channelId = context!!.getString(R.string.app_name)
-        val title = context.getString(R.string.app_title)
-        val message = context.getString(R.string.notification_text)
-
-        val channel = NotificationChannel(
-            channelId,
-            title,
-            NotificationManager.IMPORTANCE_DEFAULT
-        ).apply {
-            description = message
-        }
-
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
-
         val calendar = Calendar.getInstance()
         val now = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
 
@@ -108,7 +107,10 @@ class NotificationReceiver : BroadcastReceiver() {
                 pushButtonPendingIntent)
             .build()
 
-        notificationManager.notify(R.string.app_name, builder)
+        val notificationManagerCompat = NotificationManagerCompat.from(context).apply {
+            createNotificationChannel(channel)
+            notify(R.string.app_name, builder)
+        }
     }
 
 
