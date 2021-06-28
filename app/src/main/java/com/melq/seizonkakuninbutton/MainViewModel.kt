@@ -20,7 +20,7 @@ class MainViewModel : ViewModel() {
     val auth: FirebaseAuth = Firebase.auth
     val user: FirebaseUser get() = auth.currentUser!!
 
-    var name: MutableLiveData<String> = MutableLiveData("")
+    val name: MutableLiveData<String> by lazy { MutableLiveData(getName()) }
     var eMessage: MutableLiveData<Int> = MutableLiveData(0)
     var done: MutableLiveData<Boolean> = MutableLiveData(false)
 
@@ -108,7 +108,8 @@ class MainViewModel : ViewModel() {
             }
     }
 
-    fun getName(): String {
+    private fun getName(): String {
+        Log.d("GET_NAME", "get name")
         return repository.getUserName(user.uid) { name.value = it }
     }
 

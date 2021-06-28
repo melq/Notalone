@@ -22,7 +22,6 @@ class UserInfoFragment : Fragment(R.layout.fragment_user_info) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentUserInfoBinding.bind(view)
 
-        vm.getName()
         vm.name.observe(viewLifecycleOwner) {
             binding.etName.setText(it)
         }
