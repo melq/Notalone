@@ -2,8 +2,10 @@ package com.melq.seizonkakuninbutton.page.history
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.Timestamp
 import com.melq.seizonkakuninbutton.MainViewModel
@@ -27,10 +29,15 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         date.hours = 3
         date.minutes = 32
         val historyList = mutableListOf<Timestamp>(Timestamp(date), Timestamp.now())
+
         adapter = MyAdapter(historyList)
+        val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
+            setDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.divider)!!)
+        }
         binding.recyclerView.also {
             it.layoutManager = LinearLayoutManager(context)
             it.adapter = adapter
+            it.addItemDecoration(dividerItemDecoration)
         }
     }
 }
