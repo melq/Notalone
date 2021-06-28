@@ -58,23 +58,26 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             } else
                 findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
         }
+
+        // FEATURE: 見る側の画面も追加する
     }
 
-    private fun setNotification() {
+    private fun setNotification() { // context含むからViewModelに渡せない、どこに置くのが正解？
+                                    // 通知から操作するときの関数と統合したい
         val notificationManager =
             context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(R.string.app_name)
 
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.add(Calendar.SECOND, 5)
+        calendar.add(Calendar.SECOND, 3)
 
         val requestCode = 1
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             requestCode,
-            Intent(context, NotificationReceiver::class.java),
-            0
+            Intent(context, NotificationReceiver::class.java).apply { putExtra("RequestCode", 1) },
+            PendingIntent.FLAG_UPDATE_CURRENT
         )
 
         am = context?.getSystemService()!!
