@@ -50,10 +50,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         binding.btMain.setOnClickListener {
 //            vm.buttonPushed()
+//
+//            // 通知関連. context含むのでVMに渡せない
 //            val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
 //            notificationManagerCompat.cancel(R.string.app_name)
-//
 //            NotificationReceiver.setNotification(context)
+
             findNavController().navigate(R.id.action_mainFragment_to_historyFragment)
         }
 
