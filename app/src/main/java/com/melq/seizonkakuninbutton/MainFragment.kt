@@ -28,19 +28,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            activity?.finish()
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val user = vm.auth.currentUser
+        val user = vm.auth.currentUser // FEATURE: ここの処理はActivityの初期化処理内に移したい
         if (user != null) {
+            vm.getUserData()
             Log.d("MAIN_FRAGMENT", "email: ${user.email}, uid: ${user.uid}")
         } else {
             Log.d("MAIN_FRAGMENT", "no userdata")
             findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            activity?.finish()
         }
     }
 
@@ -58,14 +56,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
 
         binding.btHistory.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_historyFragment)
+            if (vm.user != null)
+                findNavController().navigate(R.id.action_mainFragment_to_historyFragment)
         }
 
         binding.btUserInfo.setOnClickListener{
-            if (vm.auth.currentUser != null) {
-                findNavController().navigate(R.id.action_mainFragment_to_userInfoFragment)
-            } else
-                findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+            if (vm.user != null) {
+                if (vm.auth.currentUser != null) {
+                    findNavController().navigate(R.id.action_mainFragment_to_userInfoFragment)
+                } else
+                    findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+            }
         }
 
         // FEATURE: 見る側の画面も追加する

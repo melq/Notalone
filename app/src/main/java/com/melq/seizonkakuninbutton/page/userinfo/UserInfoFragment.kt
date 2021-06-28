@@ -1,6 +1,5 @@
 package com.melq.seizonkakuninbutton.page.userinfo
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,7 +9,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.melq.seizonkakuninbutton.MainViewModel
 import com.melq.seizonkakuninbutton.R
 import com.melq.seizonkakuninbutton.databinding.FragmentUserInfoBinding
-import kotlinx.coroutines.NonCancellable.cancel
 
 class UserInfoFragment : Fragment(R.layout.fragment_user_info) {
     private val vm: MainViewModel by activityViewModels()
@@ -22,10 +20,8 @@ class UserInfoFragment : Fragment(R.layout.fragment_user_info) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentUserInfoBinding.bind(view)
 
-        vm.name.observe(viewLifecycleOwner) {
-            binding.etName.setText(it)
-        }
-        binding.etEmail.setText(vm.user.email)
+        binding.etName.setText(vm.user?.name)
+        binding.etEmail.setText(vm.firebaseUser.email)
 
         binding.btUpdate.setOnClickListener {
             vm.updateNameClicked(binding.etName.text.toString())

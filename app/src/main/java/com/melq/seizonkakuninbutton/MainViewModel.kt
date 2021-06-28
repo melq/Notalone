@@ -3,7 +3,6 @@ package com.melq.seizonkakuninbutton
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.*
@@ -18,14 +17,14 @@ class MainViewModel : ViewModel() {
     }
 
     val auth: FirebaseAuth = Firebase.auth
-    val user: FirebaseUser get() = auth.currentUser!!
+    val firebaseUser: FirebaseUser get() = auth.currentUser!!
 
-    val name: MutableLiveData<String> by lazy { MutableLiveData(getName()) }
+    var user: User? = null
     var eMessage: MutableLiveData<Int> = MutableLiveData(0)
     var done: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun buttonPushed() {
-        repository.reportLiving(user.uid, Timestamp.now())
+        repository.reportLiving(firebaseUser.uid, Timestamp.now())
     }
 
     fun loginPushed(email: String, password: String) {
@@ -108,14 +107,14 @@ class MainViewModel : ViewModel() {
             }
     }
 
-    private fun getName(): String {
-        return repository.getUserName(user.uid) { name.value = it }
+    fun getUserData() {
+        repository.getUserData(firebaseUser.uid) { user = it }
     }
 
     fun updateNameClicked(newName: String) {
-        if (newName != name.value) {
-            repository.updateName(user.uid, newName) {
-                name.value = newName
+        if (newName != user?.name) {
+            repository.updateName(firebaseUser.uid, newName) {
+                user?.name = newName
                 eMessage.value = R.string.name_updated
             }
         } else {
