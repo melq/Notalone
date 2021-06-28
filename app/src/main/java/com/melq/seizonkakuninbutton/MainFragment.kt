@@ -48,7 +48,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         _binding = FragmentMainBinding.bind(view)
 
         binding.btMain.setOnClickListener {
-            vm.buttonPushed()
+//            vm.buttonPushed()
             setNotification()
         }
 
@@ -67,7 +67,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.add(Calendar.HOUR, 12)
+        calendar.add(Calendar.SECOND, 5)
 
         val requestCode = 1
         val pendingIntent = PendingIntent.getBroadcast(

@@ -13,7 +13,9 @@ import java.util.*
 class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val requestCode = intent!!.getIntExtra("RequestCode", 0)
-        val intentToMainActivity = Intent(context, MainActivity::class.java)
+        val intentToMainActivity = Intent(context, MainActivity::class.java).apply {
+            putExtra("RequestCode", requestCode)
+        }
         val pendingIntent = PendingIntent.getActivity(
             context,
             requestCode,
@@ -47,6 +49,9 @@ class NotificationReceiver : BroadcastReceiver() {
             .setContentIntent(pendingIntent)
             .setWhen(System.currentTimeMillis())
             .setAutoCancel(true)
+//            .addAction(R.drawable.common_google_signin_btn_icon_dark,
+//                context.getString(R.string.push_button),
+//                pushButtonPendingIntent)
             .build()
 
         notificationManager.notify(R.string.app_name, builder)
