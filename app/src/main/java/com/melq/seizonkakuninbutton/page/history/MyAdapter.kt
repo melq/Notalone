@@ -25,9 +25,20 @@ class MyAdapter(private val historyList: MutableList<Timestamp>) : RecyclerView.
         val historyData = historyList[position]
 
         holder.run {
-            tvPushedTime.text = historyData.toDate().toString()
-            val now = Date()
-            tvHoursAgo.text = now.after(historyData.toDate()).toString()
+            val calendar = Calendar.getInstance()
+            calendar.time = historyData.toDate()
+            val pushedTimeStr = "${calendar.get(Calendar.MONTH) + 1}月" +
+                        "${calendar.get(Calendar.DATE)}日 " +
+                        "${calendar.get(Calendar.HOUR)}:" +
+                        "${calendar.get(Calendar.MINUTE)}:" +
+                        "${calendar.get(Calendar.SECOND)}"
+            tvPushedTime.text = pushedTimeStr
+
+            val now = Calendar.getInstance().apply { time = Date() }
+            val diffTime = now.timeInMillis - calendar.timeInMillis
+            val millisOfHours = 1000 * 60 * 60
+            val diffHours = diffTime / millisOfHours
+            tvHoursAgo.text = "$diffHours 時間前"
         }
     }
 

@@ -9,6 +9,8 @@ import com.google.firebase.Timestamp
 import com.melq.seizonkakuninbutton.MainViewModel
 import com.melq.seizonkakuninbutton.R
 import com.melq.seizonkakuninbutton.databinding.FragmentHistoryBinding
+import java.util.*
+import kotlin.time.hours
 
 class HistoryFragment : Fragment(R.layout.fragment_history) {
     private val vm: MainViewModel by activityViewModels()
@@ -22,7 +24,10 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHistoryBinding.bind(view)
 
-        val historyList = mutableListOf<Timestamp>(Timestamp.now(), Timestamp.now())
+        val date = Date()
+        date.hours = 3
+        date.minutes = 32
+        val historyList = mutableListOf<Timestamp>(Timestamp(date), Timestamp.now())
         adapter = MyAdapter(historyList)
         binding.recyclerView.also {
             it.layoutManager = LinearLayoutManager(context)
