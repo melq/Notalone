@@ -49,11 +49,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         _binding = FragmentMainBinding.bind(view)
 
         binding.btMain.setOnClickListener {
-            vm.buttonPushed()
-            val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
-            notificationManagerCompat.cancel(R.string.app_name)
-
-            NotificationReceiver.setNotification(context)
+//            vm.buttonPushed()
+//            val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
+//            notificationManagerCompat.cancel(R.string.app_name)
+//
+//            NotificationReceiver.setNotification(context)
+            findNavController().navigate(R.id.action_mainFragment_to_historyFragment)
         }
 
         binding.btUserInfo.setOnClickListener{
