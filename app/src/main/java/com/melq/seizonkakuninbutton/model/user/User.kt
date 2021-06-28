@@ -7,6 +7,8 @@ class User (
     val name: String,
     val pushHistory: MutableList<Timestamp>
 ) {
+    constructor() : this("", "", mutableListOf())
+
     override fun toString(): String {
         return hashMapOf(
             "email" to email,

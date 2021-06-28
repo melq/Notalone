@@ -109,7 +109,6 @@ class MainViewModel : ViewModel() {
     }
 
     private fun getName(): String {
-        Log.d("GET_NAME", "get name")
         return repository.getUserName(user.uid) { name.value = it }
     }
 

@@ -12,26 +12,6 @@ class UserRepository {
     }
     private val db = Firebase.firestore
 
-    fun getUserName(id: String, onSuccess: (String) -> Unit): String { // 取得待機がよくわからんので、関数を渡している
-        val tag = "GET_USER_NAME"
-        var name = ""
-        val doc = db.collection(collectionName).document(id)
-        doc.get()
-            .addOnSuccessListener { document ->
-                if (document.data != null) {
-                    Log.d(tag, "DocumentSnapshot exists data: ${document.data}")
-                    name = document.data!!.toUser().name
-                } else {
-                    Log.d(tag, "no such document")
-                }
-                onSuccess(name)
-            }
-            .addOnFailureListener { e ->
-                Log.d(tag, "get failed with", e)
-            }
-        return name
-    }
-
     fun createUser(id: String, user: User, onSuccess: () -> Unit) {
         val tag = "CREATE_USER"
         val doc = db.collection(collectionName).document(id)
@@ -54,6 +34,46 @@ class UserRepository {
             .addOnFailureListener { e ->
                 Log.w(tag, "get failed with", e)
             }
+    }
+
+    fun getUserData(id: String, onSuccess: (User) -> Unit): User { // 取得待機がよくわからんので、関数を渡している
+        val tag = "GET_USER_DATA"
+        var user = User()
+        val doc = db.collection(collectionName).document(id)
+        doc.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    Log.d(tag, "DocumentSnapshot exists. data: ${document.data}")
+                    user = document.data!!.toUser()
+                } else {
+                    Log.d(tag, "no such document")
+                }
+                onSuccess(user)
+            }
+            .addOnFailureListener { e ->
+                Log.d(tag, "get failed with", e)
+            }
+        return user // 待ち方わからんので、 User() が返ってる
+    }
+
+    fun getUserName(id: String, onSuccess: (String) -> Unit): String {
+        val tag = "GET_USER_NAME"
+        var name = ""
+        val doc = db.collection(collectionName).document(id)
+        doc.get()
+            .addOnSuccessListener { document ->
+                if (document.data != null) {
+                    Log.d(tag, "DocumentSnapshot exists data: ${document.data}")
+                    name = document.data!!.toUser().name
+                } else {
+                    Log.d(tag, "no such document")
+                }
+                onSuccess(name)
+            }
+            .addOnFailureListener { e ->
+                Log.d(tag, "get failed with", e)
+            }
+        return name // 待ち方わからんので name = "" が返ってる
     }
 
     fun reportLiving(id: String, timestamp: Timestamp) {
