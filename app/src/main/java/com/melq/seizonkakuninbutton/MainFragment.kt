@@ -53,6 +53,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.btMain.setOnClickListener {
             vm.buttonPushed()
 
+            // FEATURE: Snackbarを表示したい
+
             // 通知関連. context含むのでVMに渡せない
             val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
             notificationManagerCompat.cancel(R.string.app_name)
