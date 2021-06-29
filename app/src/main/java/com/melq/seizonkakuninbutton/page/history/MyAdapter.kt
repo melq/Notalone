@@ -22,7 +22,7 @@ class MyAdapter(private val historyList: MutableList<Timestamp>) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val historyData = historyList[position]
+        val historyData = historyList[historyList.size - 1 - position]
 
         holder.run {
             val calendar = Calendar.getInstance()
