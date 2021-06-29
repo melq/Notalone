@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
@@ -57,10 +58,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.btMain.setOnClickListener {
             if (vm.canPush) {
                 vm.canPush = false
+                binding.btMain.background =
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.ripple_circle_gray)
                 GlobalScope.launch {
                     delay(10000)
                     vm.canPush = true
+                    binding.btMain.background =
+                        AppCompatResources.getDrawable(requireContext(), R.drawable.ripple_circle)
                 }
+
                 vm.buttonPushed()
                 vm.done.observe(viewLifecycleOwner) {
                     if (it == true) {
