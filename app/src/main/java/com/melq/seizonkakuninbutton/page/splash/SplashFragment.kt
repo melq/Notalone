@@ -24,8 +24,8 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         super.onViewCreated(view, savedInstanceState)
         this._binding = FragmentSplashBinding.bind(view)
 
-//        val pref = activity?.getSharedPreferences("preference_root", Context.MODE_PRIVATE)
-//        vm.isWatcher = pref?.getBoolean("isWatcher", false) == true
+        val pref = activity?.getSharedPreferences("preference_root", Context.MODE_PRIVATE)
+        vm.isWatcher = pref?.getBoolean("isWatcher", false) == true
 
             val runnable = Runnable {
             findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
