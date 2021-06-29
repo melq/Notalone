@@ -4,7 +4,7 @@
     <string name="splash">splash</string>
     <string name="login">login</string>
     <string name="main">main</string>
-    <string name="have_account">アカウントを作成済みの方はこちら</string>
+    <string name="have_account">アカウントを作成済みの方</string>
     <string name="account_image">人型の画像</string>
     <string name="user_id">e-mail (変更不可)</string>
     <string name="key_image">鍵の画像</string>
@@ -36,4 +36,5 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="hours_ago">時間前</string>
+    <string name="check_if_watcher">みまもる側の方はチェックを付けてください</string>
 </resources>

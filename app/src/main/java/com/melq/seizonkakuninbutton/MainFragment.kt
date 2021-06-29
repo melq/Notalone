@@ -85,7 +85,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 notificationManagerCompat.cancel(R.string.app_name)
                 NotificationReceiver.setNotification(context)
             }
-
         }
 
         binding.btHistory.setOnClickListener {
@@ -101,7 +100,5 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
             }
         }
-
-        // FEATURE: 見る側の画面も追加する
     }
 }

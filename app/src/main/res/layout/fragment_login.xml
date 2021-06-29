@@ -103,6 +103,14 @@
 
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/cb_watcher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/check_if_watcher"
+                android:textColor="@color/dark_gray" />
+
             <Button
                 android:id="@+id/bt_login"
                 android:layout_width="match_parent"
