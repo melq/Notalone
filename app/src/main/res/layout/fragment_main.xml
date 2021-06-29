@@ -41,6 +41,7 @@
         android:background="@drawable/ripple_circle">
 
         <TextView
+            android:id="@+id/tv_btText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

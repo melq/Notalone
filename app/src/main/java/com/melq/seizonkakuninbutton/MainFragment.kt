@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.melq.seizonkakuninbutton.databinding.FragmentMainBinding
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -58,13 +59,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.btMain.setOnClickListener {
             if (vm.canPush) {
                 vm.canPush = false
-                binding.btMain.background =
-                    AppCompatResources.getDrawable(requireContext(), R.drawable.ripple_circle_gray)
-                GlobalScope.launch {
-                    delay(10000)
+                GlobalScope.launch(Dispatchers.Main) {
+                    for (i in 109 downTo 10) {
+                        binding.btMain.background =
+                            AppCompatResources.getDrawable(requireContext(), R.drawable.circle_gray)
+                        binding.tvBtText.text = (i / 10).toString()
+                        delay(100)
+                    }
                     vm.canPush = true
                     binding.btMain.background =
                         AppCompatResources.getDrawable(requireContext(), R.drawable.ripple_circle)
+                    binding.tvBtText.text = getString(R.string.push)
                 }
 
                 vm.buttonPushed()
