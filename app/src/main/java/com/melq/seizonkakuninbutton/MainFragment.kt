@@ -29,8 +29,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = _binding!!
 
-    lateinit var am: AlarmManager
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,6 +39,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onStart() {
         super.onStart()
+
+        Log.d("MAIN_FRAGMENT", "isWatcher: ${vm.isWatcher}, " +
+                "pref.isWatcher: ${activity?.getSharedPreferences("preference_root", Context.MODE_PRIVATE)?.getBoolean("isWatcher", false)}")
 
         val user = vm.auth.currentUser // FEATURE: ここの処理はActivityの初期化処理内に移したい
         if (user != null) {
