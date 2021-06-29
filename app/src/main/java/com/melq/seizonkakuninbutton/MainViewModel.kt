@@ -69,7 +69,7 @@ class MainViewModel : ViewModel() {
             }
     }
 
-    fun createPushed(name: String, email: String, password: String) {
+    fun createPushed(name: String, email: String, password: String, isWatcher: Boolean) {
         val tag = "CREATE_PUSHED"
         if (name.isBlank() || email.isBlank() || password.isBlank()) {
             eMessage.value = R.string.enter_info
@@ -93,6 +93,7 @@ class MainViewModel : ViewModel() {
                                 Timestamp.now()
                             )
                         )) {
+                        this.isWatcher = isWatcher
                         done.value = true
                     }
                 } else {
