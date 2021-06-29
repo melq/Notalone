@@ -29,7 +29,7 @@ class MyAdapter(private val historyList: MutableList<Timestamp>) : RecyclerView.
             calendar.time = historyData.toDate()
             val pushedTimeStr = "${calendar.get(Calendar.MONTH) + 1}月" +
                         "${calendar.get(Calendar.DATE)}日 " +
-                        "${calendar.get(Calendar.HOUR)}:" +
+                        "${calendar.get(Calendar.HOUR_OF_DAY)}:" +
                         "${calendar.get(Calendar.MINUTE)}:" +
                         "${calendar.get(Calendar.SECOND)}"
             tvPushedTime.text = pushedTimeStr
