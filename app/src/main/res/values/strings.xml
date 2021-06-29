@@ -37,4 +37,5 @@
     <string name="cancel">Cancel</string>
     <string name="hours_ago">時間前</string>
     <string name="check_if_watcher">みまもる側の方はチェックを付けてください</string>
+    <string name="watcher_mode">みまもりモード</string>
 </resources>
