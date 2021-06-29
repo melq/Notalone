@@ -127,11 +127,19 @@
 
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/cb_watcher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/check_if_watcher"
+                android:textColor="@color/dark_gray" />
+            
             <Button
                 android:id="@+id/bt_create_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="32dp"
                 app:backgroundTint="@null"
                 android:textColor="@color/primary"
                 android:background="@drawable/ripple"
