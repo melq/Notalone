@@ -24,7 +24,9 @@ class MainViewModel : ViewModel() {
     var done: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun buttonPushed() {
-        repository.reportLiving(firebaseUser.uid, Timestamp.now())
+        val now = Timestamp.now()
+        repository.reportLiving(firebaseUser.uid, now)
+        user?.pushHistory?.add(now)
     }
 
     fun loginPushed(email: String, password: String) {
