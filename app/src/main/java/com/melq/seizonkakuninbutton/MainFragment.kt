@@ -16,6 +16,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.melq.seizonkakuninbutton.databinding.FragmentMainBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -52,18 +55,26 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         _binding = FragmentMainBinding.bind(view)
 
         binding.btMain.setOnClickListener {
-            vm.buttonPushed()
-            vm.done.observe(viewLifecycleOwner) {
-                if (it == true) {
-                    Snackbar.make(view, R.string.button_pushed, Snackbar.LENGTH_SHORT).show()
-                    vm.done.value = false
+            if (vm.canPush) {
+                vm.canPush = false
+                GlobalScope.launch {
+                    delay(10000)
+                    vm.canPush = true
                 }
+                vm.buttonPushed()
+                vm.done.observe(viewLifecycleOwner) {
+                    if (it == true) {
+                        Snackbar.make(view, R.string.button_pushed, Snackbar.LENGTH_SHORT).show()
+                        vm.done.value = false
+                    }
+                }
+
+                // 通知関連. context含むのでVMに渡せない
+                val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
+                notificationManagerCompat.cancel(R.string.app_name)
+                NotificationReceiver.setNotification(context)
             }
 
-            // 通知関連. context含むのでVMに渡せない
-            val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
-            notificationManagerCompat.cancel(R.string.app_name)
-            NotificationReceiver.setNotification(context)
         }
 
         binding.btHistory.setOnClickListener {

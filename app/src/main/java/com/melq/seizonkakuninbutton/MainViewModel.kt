@@ -23,6 +23,8 @@ class MainViewModel : ViewModel() {
     var eMessage: MutableLiveData<Int> = MutableLiveData(0)
     var done: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    var canPush = true
+
     fun buttonPushed() {
         val now = Timestamp.now()
         repository.reportLiving(firebaseUser.uid, now)
