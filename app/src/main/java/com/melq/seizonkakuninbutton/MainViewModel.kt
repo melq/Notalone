@@ -24,6 +24,7 @@ class MainViewModel : ViewModel() {
     var done: MutableLiveData<Boolean> = MutableLiveData(false)
 
     var canPush = true
+    var isWatcher = false
 
     fun buttonPushed() {
         val now = Timestamp.now()
@@ -32,7 +33,7 @@ class MainViewModel : ViewModel() {
         done.value = true
     }
 
-    fun loginPushed(email: String, password: String) {
+    fun loginPushed(email: String, password: String, isWatcher: Boolean) {
         val tag = "LOGIN_PUSHED"
         if (email.isBlank() || password.isBlank()) {
             eMessage.value = R.string.enter_info
@@ -43,6 +44,7 @@ class MainViewModel : ViewModel() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d(tag, "signInWithEmail: success")
+                    this.isWatcher = isWatcher
                     done.value = true
                 } else {
                     when (task.exception) {

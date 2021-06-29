@@ -1,7 +1,10 @@
 package com.melq.seizonkakuninbutton.page.login
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -22,7 +25,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         binding.btLogin.setOnClickListener {
             binding.run {
-                vm.loginPushed(etEmail.text.toString(), etPassword.text.toString())
+                vm.loginPushed(etEmail.text.toString(), etPassword.text.toString(), cbWatcher.isChecked)
                 vm.eMessage.observe(viewLifecycleOwner) {
                     if (it != 0) {
                         Snackbar.make(view, it, Snackbar.LENGTH_SHORT).show()
@@ -34,6 +37,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         Snackbar.make(view,
                             "${vm.auth.currentUser!!.email}${getString(R.string.success_login)}",
                             Snackbar.LENGTH_LONG).show()
+                        val pref = activity?.getSharedPreferences("preference_root", Context.MODE_PRIVATE)
+                        pref?.edit { putBoolean("isWatcher", vm.isWatcher) }
                         findNavController().popBackStack()
                         vm.done.value = false
                     }
