@@ -25,10 +25,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHistoryBinding.bind(view)
 
-        val date = Date()
-        date.hours = 3
-        date.minutes = 32
-        val historyList = mutableListOf<Timestamp>(Timestamp(date), Timestamp.now())
+        val historyList = vm.user!!.pushHistory
 
         adapter = MyAdapter(historyList)
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {

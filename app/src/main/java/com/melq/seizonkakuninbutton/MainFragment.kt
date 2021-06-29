@@ -28,6 +28,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            activity?.finish()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
         val user = vm.auth.currentUser // FEATURE: ここの処理はActivityの初期化処理内に移したい
         if (user != null) {
             vm.getUserData()
@@ -35,10 +43,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         } else {
             Log.d("MAIN_FRAGMENT", "no userdata")
             findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            activity?.finish()
         }
     }
 

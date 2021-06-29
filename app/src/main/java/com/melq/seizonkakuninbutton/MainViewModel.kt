@@ -114,7 +114,7 @@ class MainViewModel : ViewModel() {
     fun updateNameClicked(newName: String) {
         if (newName != user?.name) {
             repository.updateName(firebaseUser.uid, newName) {
-                user?.name = newName
+                user?.name = newName // User取得をActivityに移したときのためにこれは残す
                 eMessage.value = R.string.name_updated
             }
         } else {
