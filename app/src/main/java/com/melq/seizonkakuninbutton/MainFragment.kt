@@ -14,6 +14,7 @@ import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.melq.seizonkakuninbutton.databinding.FragmentMainBinding
 import java.util.*
 
@@ -52,8 +53,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         binding.btMain.setOnClickListener {
             vm.buttonPushed()
-
-            // FEATURE: Snackbarを表示したい
+            vm.done.observe(viewLifecycleOwner) {
+                if (it == true) {
+                    Snackbar.make(view, R.string.button_pushed, Snackbar.LENGTH_SHORT).show()
+                    vm.done.value = false
+                }
+            }
 
             // 通知関連. context含むのでVMに渡せない
             val notificationManagerCompat = NotificationManagerCompat.from(requireContext())

@@ -27,6 +27,7 @@ class MainViewModel : ViewModel() {
         val now = Timestamp.now()
         repository.reportLiving(firebaseUser.uid, now)
         user?.pushHistory?.add(now)
+        done.value = true
     }
 
     fun loginPushed(email: String, password: String) {
