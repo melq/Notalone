@@ -20,20 +20,24 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     private val handler = Handler()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        this._binding = FragmentSplashBinding.bind(view)
+    override fun onStart() {
+        super.onStart()
 
         val pref = activity?.getSharedPreferences("preference_root", Context.MODE_PRIVATE)
         vm.isWatcher = pref?.getBoolean("isWatcher", false) == true
 
-            val runnable = Runnable {
+        val runnable = Runnable {
             findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
         }
         handler.postDelayed(
             runnable,
             1300
         )
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        this._binding = FragmentSplashBinding.bind(view)
 
         binding.constraintLayout.setOnClickListener {
             handler.removeCallbacksAndMessages(null)

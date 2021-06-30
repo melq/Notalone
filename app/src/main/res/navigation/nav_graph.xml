@@ -18,6 +18,7 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.melq.seizonkakuninbutton.MainFragment"
@@ -44,7 +45,15 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_mainFragment_to_watcherHistoryFragment"
+            app:destination="@id/watcherHistoryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.melq.seizonkakuninbutton.page.login.LoginFragment"
@@ -58,6 +67,7 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+
     <fragment
         android:id="@+id/createFragment"
         android:name="com.melq.seizonkakuninbutton.page.create.CreateFragment"
@@ -71,14 +81,38 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+
     <fragment
         android:id="@+id/userInfoFragment"
         android:name="com.melq.seizonkakuninbutton.page.userinfo.UserInfoFragment"
         android:label="UserInfoFragment"
-        tools:layout="@layout/fragment_user_info" />
+        tools:layout="@layout/fragment_user_info" >
+        <action
+            android:id="@+id/action_userInfoFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.melq.seizonkakuninbutton.page.history.HistoryFragment"
         android:label="HistoryFragment"
         tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/watcherHistoryFragment"
+        android:name="com.melq.seizonkakuninbutton.page.history.WatcherHistoryFragment"
+        android:label="WatcherHistoryFragment"
+        tools:layout="@layout/fragment_watcher_history" >
+        <action
+            android:id="@+id/action_watcherHistoryFragment_to_userInfoFragment"
+            app:destination="@id/userInfoFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 </navigation>
