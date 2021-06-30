@@ -11,8 +11,8 @@ import com.melq.seizonkakuninbutton.databinding.FragmentWatcherHistoryBinding
 class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
     val vm: MainViewModel by activityViewModels()
 
-    var _binding: FragmentWatcherHistoryBinding? = null
-    val binding: FragmentWatcherHistoryBinding get() = _binding!!
+    private var _binding: FragmentWatcherHistoryBinding? = null
+    private val binding: FragmentWatcherHistoryBinding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

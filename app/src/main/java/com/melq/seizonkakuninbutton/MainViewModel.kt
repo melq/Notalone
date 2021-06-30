@@ -132,6 +132,7 @@ class MainViewModel : ViewModel() {
 
     fun logoutClicked() {
         auth.signOut()
+        isWatcher = false
         done.value = true
     }
 }
