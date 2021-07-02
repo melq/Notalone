@@ -90,9 +90,7 @@ class MainViewModel : ViewModel() {
                         User(
                             email,
                             name,
-                            mutableListOf(
-                                Timestamp.now()
-                            )
+                            mutableListOf()
                         )) {
                         this.isWatcher = isWatcher
                         done.value = true
