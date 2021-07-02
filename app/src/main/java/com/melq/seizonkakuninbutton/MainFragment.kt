@@ -47,6 +47,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         if (user != null) {
             vm.getUserData()
             Log.d("MAIN_FRAGMENT", "email: ${user.email}, uid: ${user.uid}")
+
+            if (vm.isWatcher) findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
         } else {
             Log.d("MAIN_FRAGMENT", "no userdata")
             findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
