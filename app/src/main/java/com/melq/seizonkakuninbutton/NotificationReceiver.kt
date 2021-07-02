@@ -19,10 +19,12 @@ import java.util.*
 
 class NotificationReceiver : BroadcastReceiver() {
     companion object {
+        private const val warningLine = 12
+
         fun setNotification(context: Context?) { // context含むからViewModelに渡せない、どこに置くのが正解？
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = System.currentTimeMillis()
-            calendar.add(Calendar.HOUR, 12)
+            calendar.add(Calendar.HOUR, warningLine)
 
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
@@ -38,80 +40,83 @@ class NotificationReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val channelId = context!!.getString(R.string.app_name)
-        val title = context.getString(R.string.app_title)
-        val message = context.getString(R.string.notification_text)
 
-        val channel = NotificationChannel(
-            channelId,
-            title,
-            NotificationManager.IMPORTANCE_DEFAULT
-        ).apply {
-            description = message
-        }
+        when (val requestCode = intent!!.getIntExtra("RequestCode", 0)) {
+            1 -> {
+                val intentToMainActivity = Intent(context, MainActivity::class.java).apply {
+                    putExtra("RequestCode", requestCode)
+                }
+                val pendingIntent = PendingIntent.getActivity(
+                    context,
+                    1,
+                    intentToMainActivity,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
 
-        val requestCode = intent!!.getIntExtra("RequestCode", 0)
-        if (requestCode == 2) {
-            val builder = NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(R.drawable.ic_baseline_perm_identity_vector)
-                .setContentText(context.getString(R.string.button_pushed))
-                .setColor(context.getColor(R.color.secondary))
-                .setWhen(System.currentTimeMillis())
-                .setAutoCancel(true)
-                .setTimeoutAfter(1000)
-                .build()
-            val notificationManagerCompat = NotificationManagerCompat.from(context)
-            notificationManagerCompat.notify(R.string.app_name, builder)
+                val intentToPushButton = Intent(context, NotificationReceiver::class.java).apply {
+                    putExtra("RequestCode", 2)
+                }
+                val pushButtonPendingIntent = PendingIntent.getBroadcast(
+                    context,
+                    2,
+                    intentToPushButton,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
 
-            FirebaseApp.initializeApp(context)
-            val user = Firebase.auth.currentUser
-            if (user != null) {
-                UserRepository().reportLiving(user.uid, Timestamp.now())
+                val calendar = Calendar.getInstance()
+                val now = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
+
+                val title = context.getString(R.string.app_title)
+                val message = context.getString(R.string.notification_text)
+
+                val builder = NotificationCompat.Builder(context, channelId)
+                    .setSmallIcon(R.drawable.ic_baseline_perm_identity_vector)
+                    .setContentTitle(now)
+                    .setContentText(message)
+                    .setColor(context.getColor(R.color.secondary))
+                    .setContentIntent(pendingIntent)
+                    .setWhen(System.currentTimeMillis())
+                    .setAutoCancel(true)
+                    .addAction(R.drawable.common_google_signin_btn_icon_dark,
+                        context.getString(R.string.push_button),
+                        pushButtonPendingIntent)
+                    .build()
+
+                val channel = NotificationChannel(
+                    channelId,
+                    title,
+                    NotificationManager.IMPORTANCE_DEFAULT
+                ).apply {
+                    description = message
+                }
+
+                val notificationManagerCompat = NotificationManagerCompat.from(context).apply {
+                    createNotificationChannel(channel)
+                    notify(R.string.app_name, builder)
+                }
             }
-            setNotification(context)
-            return
+            2 -> {
+                val builder = NotificationCompat.Builder(context, channelId)
+                    .setSmallIcon(R.drawable.ic_baseline_perm_identity_vector)
+                    .setContentText(context.getString(R.string.button_pushed))
+                    .setColor(context.getColor(R.color.secondary))
+                    .setWhen(System.currentTimeMillis())
+                    .setAutoCancel(true)
+                    .setTimeoutAfter(1000)
+                    .build()
+                val notificationManagerCompat = NotificationManagerCompat.from(context)
+                notificationManagerCompat.notify(R.string.app_name, builder)
+
+                FirebaseApp.initializeApp(context)
+                val user = Firebase.auth.currentUser
+                if (user != null) {
+                    UserRepository().reportLiving(user.uid, Timestamp.now())
+                }
+                setNotification(context)
+                return
+            }
         }
 
-        val intentToMainActivity = Intent(context, MainActivity::class.java).apply {
-            putExtra("RequestCode", requestCode)
-        }
-        val pendingIntent = PendingIntent.getActivity(
-            context,
-            1,
-            intentToMainActivity,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
 
-        val intentToPushButton = Intent(context, NotificationReceiver::class.java).apply {
-            putExtra("RequestCode", 2)
-        }
-        val pushButtonPendingIntent = PendingIntent.getBroadcast(
-            context,
-            2,
-            intentToPushButton,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        val calendar = Calendar.getInstance()
-        val now = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
-
-        val builder = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.drawable.ic_baseline_perm_identity_vector)
-            .setContentTitle(now)
-            .setContentText(message)
-            .setColor(context.getColor(R.color.secondary))
-            .setContentIntent(pendingIntent)
-            .setWhen(System.currentTimeMillis())
-            .setAutoCancel(true)
-            .addAction(R.drawable.common_google_signin_btn_icon_dark,
-                context.getString(R.string.push_button),
-                pushButtonPendingIntent)
-            .build()
-
-        val notificationManagerCompat = NotificationManagerCompat.from(context).apply {
-            createNotificationChannel(channel)
-            notify(R.string.app_name, builder)
-        }
     }
-
-
 }
