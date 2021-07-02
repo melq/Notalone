@@ -2,6 +2,7 @@ package com.melq.seizonkakuninbutton.page.history
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -21,6 +22,14 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
     private val binding: FragmentWatcherHistoryBinding get() = _binding!!
 
     private lateinit var adapter: MyAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            activity?.finish()
+        }
+    }
 
     override fun onStart() {
         super.onStart()
