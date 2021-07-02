@@ -33,6 +33,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         super.onStart()
 
         if (!vm.isWatcher) findNavController().popBackStack()
+        vm.getUserData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +59,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                     addAll(vm.user.pushHistory)
                 }
                 adapter.notifyDataSetChanged()
+                vm.isUserLoaded.value = false
             }
         }
 

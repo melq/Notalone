@@ -39,10 +39,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         val user = vm.auth.currentUser // FEATURE: ここの処理はActivityの初期化処理内に移したい
         if (user != null) {
-            vm.getUserData()
             Log.d("MAIN_FRAGMENT", "email: ${user.email}, uid: ${user.uid}")
 
             if (vm.isWatcher) findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
+            else vm.getUserData()
         } else {
             Log.d("MAIN_FRAGMENT", "no userdata")
             findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
