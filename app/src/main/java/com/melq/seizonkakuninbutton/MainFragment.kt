@@ -1,17 +1,12 @@
 package com.melq.seizonkakuninbutton
 
-import android.app.AlarmManager
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -21,7 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.*
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val vm: MainViewModel by activityViewModels()
@@ -91,12 +85,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
 
         binding.btHistory.setOnClickListener {
-            if (vm.user != null)
+            if (vm.isUserLoaded.value == true)
                 findNavController().navigate(R.id.action_mainFragment_to_historyFragment)
         }
 
         binding.btUserInfo.setOnClickListener{
-            if (vm.user != null) {
+            if (vm.isUserLoaded.value == true) {
                 if (vm.auth.currentUser != null) {
                     findNavController().navigate(R.id.action_mainFragment_to_userInfoFragment)
                 } else

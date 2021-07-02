@@ -19,7 +19,8 @@ class MainViewModel : ViewModel() {
     val auth: FirebaseAuth = Firebase.auth
     val firebaseUser: FirebaseUser get() = auth.currentUser!!
 
-    var user: User? = null
+    var user: User = User("", "", mutableListOf())
+    var isUserLoaded: MutableLiveData<Boolean> = MutableLiveData(false)
     var eMessage: MutableLiveData<Int> = MutableLiveData(0)
     var done: MutableLiveData<Boolean> = MutableLiveData(false)
 
@@ -29,7 +30,7 @@ class MainViewModel : ViewModel() {
     fun buttonPushed() {
         val now = Timestamp.now()
         repository.reportLiving(firebaseUser.uid, now)
-        user?.pushHistory?.add(now)
+        user.pushHistory.add(now)
         done.value = true
     }
 
@@ -116,13 +117,16 @@ class MainViewModel : ViewModel() {
     }
 
     fun getUserData() {
-        repository.getUserData(firebaseUser.uid) { user = it }
+        repository.getUserData(firebaseUser.uid) {
+            user = it
+            isUserLoaded.value = true
+        }
     }
 
     fun updateNameClicked(newName: String) {
-        if (newName != user?.name) {
+        if (newName != user.name && newName.isNotBlank()) {
             repository.updateName(firebaseUser.uid, newName) {
-                user?.name = newName // User取得をActivityに移したときのためにこれは残す
+                user.name = newName // User取得をActivityに移したときのためにこれは残す
                 eMessage.value = R.string.name_updated
             }
         } else {
