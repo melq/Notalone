@@ -15,16 +15,19 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.melq.seizonkakuninbutton.model.user.UserRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 
 class NotificationReceiver : BroadcastReceiver() {
     companion object {
-        private const val warningLine = 12
+        private const val warningLine = 5
 
         fun setNotification(context: Context?) { // context含むからViewModelに渡せない、どこに置くのが正解？
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = System.currentTimeMillis()
-            calendar.add(Calendar.HOUR, warningLine)
+            calendar.add(Calendar.SECOND, warningLine)
 
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
@@ -53,7 +56,8 @@ class NotificationReceiver : BroadcastReceiver() {
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
 
-                val intentToPushButton = Intent(context, NotificationReceiver::class.java).apply {
+                // FireStore操作でandroid.database.sqlite.SQLiteDatabaseLockedExceptionが出るので、アクションボタンは一旦廃止
+                /*val intentToPushButton = Intent(context, NotificationReceiver::class.java).apply {
                     putExtra("RequestCode", 2)
                 }
                 val pushButtonPendingIntent = PendingIntent.getBroadcast(
@@ -61,7 +65,7 @@ class NotificationReceiver : BroadcastReceiver() {
                     2,
                     intentToPushButton,
                     PendingIntent.FLAG_UPDATE_CURRENT
-                )
+                )*/
 
                 val calendar = Calendar.getInstance()
                 val now = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
@@ -77,9 +81,7 @@ class NotificationReceiver : BroadcastReceiver() {
                     .setContentIntent(pendingIntent)
                     .setWhen(System.currentTimeMillis())
                     .setAutoCancel(true)
-                    .addAction(R.drawable.common_google_signin_btn_icon_dark,
-                        context.getString(R.string.push_button),
-                        pushButtonPendingIntent)
+//                    .addAction(R.drawable.ic_baseline_perm_identity_vector, context.getString(R.string.push_button), pushButtonPendingIntent)
                     .build()
 
                 val channel = NotificationChannel(
@@ -95,7 +97,7 @@ class NotificationReceiver : BroadcastReceiver() {
                     notify(R.string.app_name, builder)
                 }
             }
-            2 -> {
+            /*2 -> {
                 val builder = NotificationCompat.Builder(context, channelId)
                     .setSmallIcon(R.drawable.ic_baseline_perm_identity_vector)
                     .setContentText(context.getString(R.string.button_pushed))
@@ -107,14 +109,17 @@ class NotificationReceiver : BroadcastReceiver() {
                 val notificationManagerCompat = NotificationManagerCompat.from(context)
                 notificationManagerCompat.notify(R.string.app_name, builder)
 
-                FirebaseApp.initializeApp(context)
-                val user = Firebase.auth.currentUser
-                if (user != null) {
-                    UserRepository().reportLiving(user.uid, Timestamp.now())
+                GlobalScope.launch(Dispatchers.Main) {
+                    val firebaseApp = FirebaseApp.initializeApp(context)
+                    val user = Firebase.auth.currentUser
+                    if (user != null) {
+                        UserRepository().reportLiving(user.uid, Timestamp.now())
+                    }
                 }
+
                 setNotification(context)
                 return
-            }
+            }*/
         }
 
 
