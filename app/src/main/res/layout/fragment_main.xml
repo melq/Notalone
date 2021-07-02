@@ -59,7 +59,7 @@
         android:backgroundTint="@color/primary"
         android:layout_margin="16dp"
         android:src="@drawable/ic_baseline_history_vector"
-        android:contentDescription="@string/account_image" />
+        android:contentDescription="@string/history_image" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/bt_user_info"
