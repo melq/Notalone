@@ -39,4 +39,5 @@
     <string name="check_if_watcher">みまもる側の方はチェックを付けてください</string>
     <string name="watcher_mode">みまもりモード</string>
     <string name="history_image">履歴の画像</string>
+    <string name="_watcher_description">みまもりモードではボタンを押した履歴のみ表示されます</string>
 </resources>
