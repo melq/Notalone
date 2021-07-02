@@ -5,7 +5,6 @@ import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.melq.seizonkakuninbutton.MainViewModel
 import com.melq.seizonkakuninbutton.R
 import com.melq.seizonkakuninbutton.databinding.FragmentWatcherHistoryBinding
-import kotlinx.coroutines.*
 
 class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
     private val vm: MainViewModel by activityViewModels()

@@ -14,7 +14,6 @@
         android:padding="8sp"
         android:paddingStart="12dp"
         android:background="@color/primary"
-        android:text="test's History"
         android:textSize="32sp"
         android:textColor="@color/white"
         android:elevation="8dp"/>
