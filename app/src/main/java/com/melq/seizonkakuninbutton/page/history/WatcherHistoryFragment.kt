@@ -42,7 +42,6 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         _binding = FragmentWatcherHistoryBinding.bind(view)
 
         val historyList = vm.user.pushHistory
-
         adapter = MyAdapter(historyList)
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
             setDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.divider)!!)
@@ -55,6 +54,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
 
         vm.isUserLoaded.observe(viewLifecycleOwner) {
             if (it == true) {
+                binding.tvTitle.text = "${vm.user.name} の履歴"
                 historyList.run {
                     clear()
                     addAll(vm.user.pushHistory)
