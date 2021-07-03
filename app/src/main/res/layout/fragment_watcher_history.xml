@@ -25,6 +25,17 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bt_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/bt_user_info"
+        android:backgroundTint="@color/primary"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_autorenew_vector"
+        android:contentDescription="@string/refresh_icon" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/bt_user_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
