@@ -59,11 +59,12 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                     addAll(vm.user.pushHistory)
                 }
                 adapter.notifyDataSetChanged()
+                binding.swipeRefreshLayout.isRefreshing = false
                 vm.isUserLoaded.value = false
             }
         }
 
-        binding.btRefresh.setOnClickListener {
+        binding.swipeRefreshLayout.setOnRefreshListener {
             vm.getUserData()
         }
 
