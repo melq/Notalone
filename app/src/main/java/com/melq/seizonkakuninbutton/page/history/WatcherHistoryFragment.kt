@@ -63,6 +63,10 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
             }
         }
 
+        binding.btRefresh.setOnClickListener {
+            vm.getUserData()
+        }
+
         binding.btUserInfo.setOnClickListener {
             findNavController().navigate(R.id.action_watcherHistoryFragment_to_userInfoFragment)
         }
