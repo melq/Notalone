@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
@@ -18,9 +19,14 @@ import java.util.*
 class WatcherNotificationReceiver : BroadcastReceiver() {
     companion object {
         fun setNotification(context: Context?, timestamp: Timestamp, dangerLine: Int) {
-            val calendar = Calendar.getInstance()
-            calendar.time = timestamp.toDate()
-            calendar.add(Calendar.HOUR, dangerLine)
+            val calendar = Calendar.getInstance().apply {
+                time = timestamp.toDate()
+                add(Calendar.HOUR, dangerLine)
+            }
+            val now = Calendar.getInstance().apply {
+                timeInMillis = System.currentTimeMillis()
+            }
+            if (now.after(calendar)) return
 
             val requestCode = 1
             val pendingIntent = PendingIntent.getBroadcast(
