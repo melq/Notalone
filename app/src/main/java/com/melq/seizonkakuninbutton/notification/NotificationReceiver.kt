@@ -21,12 +21,13 @@ class NotificationReceiver : BroadcastReceiver() {
         fun setNotification(context: Context?) { // context含むからViewModelに渡せない、どこに置くのが正解？
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = System.currentTimeMillis()
-            calendar.add(Calendar.HOUR, warningLine)
+            calendar.add(Calendar.SECOND, warningLine)
 
+            val requestCode = 1
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
-                1,
-                Intent(context, NotificationReceiver::class.java).apply { putExtra("RequestCode", 1) },
+                requestCode,
+                Intent(context, NotificationReceiver::class.java).apply { putExtra("RequestCode", requestCode) },
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
 
@@ -64,7 +65,7 @@ class NotificationReceiver : BroadcastReceiver() {
                 val calendar = Calendar.getInstance()
                 val now = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
 
-                val title = context.getString(R.string.app_title)
+                val title = context.getString(R.string.remind_tu_pusher)
                 val message = context.getString(R.string.notification_text)
 
                 val builder = NotificationCompat.Builder(context, channelId)
@@ -88,7 +89,7 @@ class NotificationReceiver : BroadcastReceiver() {
 
                 val notificationManagerCompat = NotificationManagerCompat.from(context).apply {
                     createNotificationChannel(channel)
-                    notify(R.string.app_name, builder)
+                    notify(R.string.remind_tu_pusher, builder)
                 }
             }
             /*2 -> {
