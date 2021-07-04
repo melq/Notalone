@@ -20,7 +20,7 @@ class WatcherNotificationReceiver : BroadcastReceiver() {
         fun setNotification(context: Context?, timestamp: Timestamp, dangerLine: Int) {
             val calendar = Calendar.getInstance()
             calendar.time = timestamp.toDate()
-            calendar.add(Calendar.SECOND, dangerLine)
+            calendar.add(Calendar.HOUR, dangerLine)
 
             val requestCode = 1
             val pendingIntent = PendingIntent.getBroadcast(
@@ -37,7 +37,6 @@ class WatcherNotificationReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        val channelId = context!!.getString(R.string.app_name)
 
         when (val requestCode = intent!!.getIntExtra("RequestCode", 0)) {
             1 -> {
@@ -51,6 +50,7 @@ class WatcherNotificationReceiver : BroadcastReceiver() {
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
 
+                val channelId = context!!.getString(R.string.remind_to_watcher)
                 val title = context.getString(R.string.remind_to_watcher)
                 val message = context.getString(R.string.lets_watch)
 
