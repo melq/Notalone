@@ -20,6 +20,8 @@
         <receiver
             android:name=".notification.NotificationReceiver"
             android:process=".remote" />
+        <receiver android:name=".notification.WatcherNotificationReceiver"
+            android:process=".watcher_remote" />
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.melq.seizonkakuninbutton.page.history
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.content.res.AppCompatResources
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.melq.seizonkakuninbutton.MainViewModel
 import com.melq.seizonkakuninbutton.R
 import com.melq.seizonkakuninbutton.databinding.FragmentWatcherHistoryBinding
+import com.melq.seizonkakuninbutton.notification.WatcherNotificationReceiver
 
 class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
     private val vm: MainViewModel by activityViewModels()
@@ -52,14 +54,18 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         }
 
         vm.isUserLoaded.observe(viewLifecycleOwner) {
+            Log.d("WATCH_HISTORY", "vm:isUserLoaded: $it")
             if (it == true) {
                 binding.tvTitle.text = "${vm.user.name} の履歴"
                 historyList.run {
                     clear()
                     addAll(vm.user.pushHistory)
+                    if (this.isNotEmpty())
+                        WatcherNotificationReceiver.setNotification(context, last(), 24)
                 }
                 adapter.notifyDataSetChanged()
                 binding.swipeRefreshLayout.isRefreshing = false
+
                 vm.isUserLoaded.value = false
             }
         }

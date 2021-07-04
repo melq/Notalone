@@ -16,12 +16,12 @@ import java.util.*
 
 class NotificationReceiver : BroadcastReceiver() {
     companion object {
-        private const val warningLine = 5
+        private const val warningLine = 12
 
         fun setNotification(context: Context?) { // context含むからViewModelに渡せない、どこに置くのが正解？
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = System.currentTimeMillis()
-            calendar.add(Calendar.SECOND, warningLine)
+            calendar.add(Calendar.HOUR, warningLine)
 
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
