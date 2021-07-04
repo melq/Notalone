@@ -80,7 +80,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
                 // 通知関連. context含むのでVMに渡せない
                 val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
-                notificationManagerCompat.cancel(R.string.remind_tu_pusher)
+                notificationManagerCompat.cancel(R.string.remind_to_pusher)
                 NotificationReceiver.setNotification(context)
             }
         }

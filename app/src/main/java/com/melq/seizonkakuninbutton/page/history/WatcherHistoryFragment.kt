@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -60,8 +61,12 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                 historyList.run {
                     clear()
                     addAll(vm.user.pushHistory)
-                    if (this.isNotEmpty())
+
+                    val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
+                    notificationManagerCompat.cancel(R.string.remind_to_watcher)
+                    if (this.isNotEmpty()) {
                         WatcherNotificationReceiver.setNotification(context, last(), 24)
+                    }
                 }
                 adapter.notifyDataSetChanged()
                 binding.swipeRefreshLayout.isRefreshing = false

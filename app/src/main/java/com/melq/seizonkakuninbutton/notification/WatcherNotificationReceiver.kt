@@ -75,7 +75,7 @@ class WatcherNotificationReceiver : BroadcastReceiver() {
                     NotificationManagerCompat.from(context)
                         .apply {
                             createNotificationChannel(channel)
-                            notify(R.string.app_name, builder)
+                            notify(R.string.remind_to_watcher, builder)
                         }
 
                 setNotification(context, Timestamp.now(), 12)

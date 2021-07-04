@@ -65,7 +65,7 @@ class NotificationReceiver : BroadcastReceiver() {
                 val calendar = Calendar.getInstance()
                 val now = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
 
-                val title = context.getString(R.string.remind_tu_pusher)
+                val title = context.getString(R.string.remind_to_pusher)
                 val message = context.getString(R.string.notification_text)
 
                 val builder = NotificationCompat.Builder(context, channelId)
@@ -89,7 +89,7 @@ class NotificationReceiver : BroadcastReceiver() {
 
                 val notificationManagerCompat = NotificationManagerCompat.from(context).apply {
                     createNotificationChannel(channel)
-                    notify(R.string.remind_tu_pusher, builder)
+                    notify(R.string.remind_to_pusher, builder)
                 }
             }
             /*2 -> {

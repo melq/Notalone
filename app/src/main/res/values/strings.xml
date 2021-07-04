@@ -37,7 +37,7 @@
     <string name="watcher_mode">みまもりモード</string>
     <string name="history_image">履歴の画像</string>
     <string name="_watcher_description">みまもりモードではボタンを押した履歴のみ表示されます</string>
-    <string name="remind_tu_pusher">ボタンを押すよう促す通知</string>
+    <string name="remind_to_pusher">ボタンを押すよう促す通知</string>
     <string name="notification_text">ボタンを押す時間です！</string>
     <string name="push_button">ここで押しちゃう！</string>
     <string name="button_pushed">ボタンを押しました！</string>
