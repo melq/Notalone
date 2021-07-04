@@ -18,7 +18,7 @@
         </activity>
 
         <receiver
-            android:name=".NotificationReceiver"
+            android:name=".notification.NotificationReceiver"
             android:process=".remote" />
     </application>
 

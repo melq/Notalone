@@ -1,4 +1,4 @@
-package com.melq.seizonkakuninbutton
+package com.melq.seizonkakuninbutton.notification
 
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -10,14 +10,8 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
-import com.google.firebase.FirebaseApp
-import com.google.firebase.Timestamp
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.melq.seizonkakuninbutton.model.user.UserRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.melq.seizonkakuninbutton.MainActivity
+import com.melq.seizonkakuninbutton.R
 import java.util.*
 
 class NotificationReceiver : BroadcastReceiver() {
