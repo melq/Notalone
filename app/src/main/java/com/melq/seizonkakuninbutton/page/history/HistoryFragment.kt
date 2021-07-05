@@ -28,7 +28,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         binding.tvTitle.text = "${vm.user.name} の履歴"
 
         val historyList = vm.user.pushHistory
-        adapter = MyAdapter(historyList)
+        adapter = MyAdapter(historyList, requireContext())
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
             setDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.divider)!!)
         }

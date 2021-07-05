@@ -44,7 +44,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         _binding = FragmentWatcherHistoryBinding.bind(view)
 
         val historyList = vm.user.pushHistory
-        adapter = MyAdapter(historyList)
+        adapter = MyAdapter(historyList, requireContext())
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
             setDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.divider)!!)
         }
