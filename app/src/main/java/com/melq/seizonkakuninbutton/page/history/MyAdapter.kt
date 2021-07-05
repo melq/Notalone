@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.melq.seizonkakuninbutton.R
@@ -14,6 +15,7 @@ import java.util.*
 class MyAdapter(private val historyList: MutableList<Timestamp>, private val context: Context) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val box: View = view.findViewById(R.id.box)
         val tvPushedTime: TextView = view.findViewById(R.id.tv_pushed_time)
         val tvHoursAgo: TextView = view.findViewById(R.id.tv_hours_ago)
     }
@@ -42,6 +44,7 @@ class MyAdapter(private val historyList: MutableList<Timestamp>, private val con
             val diffHours = diffTime / millisOfHours
             tvHoursAgo.text = "$diffHours 時間前"
             if (position == 0) {
+                box.setBackgroundColor(context.resources.getColor(R.color.white, null))
                 if (diffHours >= 24) tvHoursAgo.setTextColor(context.resources.getColor(R.color.red, null))
                 else tvHoursAgo.setTextColor(context.resources.getColor(R.color.green, null))
             }

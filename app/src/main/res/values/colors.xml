@@ -10,6 +10,7 @@
     <color name="dark_gray">#FF555555</color>
     <color name="light_gray">#FF909090</color>
     <color name="very_light_gray">#FFE0E0E0</color>
+    <color name="super_light_gray">#FFF0F0F0</color>
 
     <color name="primary">#FFFBAD26</color>
     <color name="secondary">#FFFBD26B</color>
