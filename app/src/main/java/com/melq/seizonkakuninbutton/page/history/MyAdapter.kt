@@ -43,7 +43,7 @@ class MyAdapter(private val historyList: MutableList<Timestamp>, private val con
             tvHoursAgo.text = "$diffHours 時間前"
             if (position == 0) {
                 if (diffHours >= 24) tvHoursAgo.setTextColor(context.resources.getColor(R.color.red, null))
-//                else tvHoursAgo.setTextColor(Color.GREEN)
+                else tvHoursAgo.setTextColor(context.resources.getColor(R.color.green, null))
             }
         }
     }
