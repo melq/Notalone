@@ -1,8 +1,11 @@
 package com.melq.seizonkakuninbutton
 
 import android.util.Log
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.contentValuesOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.*
@@ -10,6 +13,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.melq.seizonkakuninbutton.model.user.User
 import com.melq.seizonkakuninbutton.model.user.UserRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
     companion object{
@@ -24,13 +31,27 @@ class MainViewModel : ViewModel() {
     var eMessage: MutableLiveData<Int> = MutableLiveData(0)
     var done: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    var canPush = true
+    val canPush: MutableLiveData<Boolean> = MutableLiveData(true)
+    val countDown: MutableLiveData<Int> = MutableLiveData(0)
     var isWatcher = false
 
     fun buttonPushed() {
+        if (canPush.value == false) return
+
+        viewModelScope.launch(Dispatchers.Main) {
+            for (i in 10 downTo 1) {
+                countDown.value = i
+                delay(1000)
+            }
+            canPush.value = true
+            countDown.value = 0
+        }
+
         val now = Timestamp.now()
         repository.reportLiving(firebaseUser.uid, now)
         user.pushHistory.add(now)
+
+        canPush.value = false
         done.value = true
     }
 

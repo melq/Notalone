@@ -48,6 +48,28 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             Log.d("MAIN_FRAGMENT", "no userdata")
             findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
         }
+
+        if (vm.canPush.value == false) {
+            binding.btMain.background =
+                AppCompatResources.getDrawable(requireContext(), R.drawable.circle_gray)
+            binding.tvBtText.text = vm.countDown.value.toString()
+        }
+
+        vm.canPush.observe(viewLifecycleOwner) {
+            if (it == true) {
+                binding.btMain.background =
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.ripple_circle)
+                binding.tvBtText.text = getString(R.string.push)
+            } else {
+                binding.btMain.background =
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.circle_gray)
+            }
+        }
+        vm.countDown.observe(viewLifecycleOwner) {
+            binding.tvBtText.text =
+                if (it in 1..10) it.toString()
+                else getString(R.string.push)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,34 +77,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         _binding = FragmentMainBinding.bind(view)
 
         binding.btMain.setOnClickListener {
-            if (vm.canPush) {
-                vm.canPush = false
-                GlobalScope.launch(Dispatchers.Main) {
-                    for (i in 109 downTo 10) {
-                        binding.btMain.background =
-                            AppCompatResources.getDrawable(requireContext(), R.drawable.circle_gray)
-                        binding.tvBtText.text = (i / 10).toString()
-                        delay(100)
-                    }
-                    vm.canPush = true
-                    binding.btMain.background =
-                        AppCompatResources.getDrawable(requireContext(), R.drawable.ripple_circle)
-                    binding.tvBtText.text = getString(R.string.push)
+            vm.buttonPushed()
+            vm.done.observe(viewLifecycleOwner) {
+                if (it == true) {
+                    Snackbar.make(view, R.string.button_pushed, Snackbar.LENGTH_SHORT).show()
+                    vm.done.value = false
                 }
-
-                vm.buttonPushed()
-                vm.done.observe(viewLifecycleOwner) {
-                    if (it == true) {
-                        Snackbar.make(view, R.string.button_pushed, Snackbar.LENGTH_SHORT).show()
-                        vm.done.value = false
-                    }
-                }
-
-                // 通知関連. context含むのでVMに渡せない
-                val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
-                notificationManagerCompat.cancel(R.string.remind_to_pusher)
-                NotificationReceiver.setNotification(context)
             }
+
+            // 通知関連. context含むのでVMに渡せない
+            val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
+            notificationManagerCompat.cancel(R.string.remind_to_pusher)
+            NotificationReceiver.setNotification(context)
         }
 
         binding.btHistory.setOnClickListener {
