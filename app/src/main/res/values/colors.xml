@@ -12,8 +12,8 @@
     <color name="very_light_gray">#FFE0E0E0</color>
     <color name="super_light_gray">#FFF0F0F0</color>
 
-    <color name="primary">#FFFBAD26</color>
-    <color name="secondary">#FFFBD26B</color>
+    <color name="primary">#00C853</color>
+    <color name="secondary">#64DD17</color>
     <color name="red">#FFBA0000</color>
     <color name="green">#FF00BA02</color>
 </resources>
