@@ -19,6 +19,12 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     private val handler = Handler()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().setTitle(R.string.app_title)
+    }
+
     override fun onStart() {
         super.onStart()
 
