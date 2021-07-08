@@ -72,6 +72,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
 
+        requireActivity().setTitle(R.string.app_title)
+
         binding.btMain.setOnClickListener {
             vm.buttonPushed()
             vm.done.observe(viewLifecycleOwner) {

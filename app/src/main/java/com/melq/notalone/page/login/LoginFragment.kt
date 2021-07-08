@@ -31,6 +31,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentLoginBinding.bind(view)
 
+        requireActivity().setTitle(R.string.log_in)
+
         binding.btLogin.setOnClickListener {
             binding.run {
                 vm.loginPushed(etEmail.text.toString(), etPassword.text.toString(), cbWatcher.isChecked)

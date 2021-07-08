@@ -22,7 +22,9 @@ class UserInfoFragment : Fragment(R.layout.fragment_user_info) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentUserInfoBinding.bind(view)
 
-        binding.etName.setText(vm.user?.name)
+        requireActivity().setTitle(R.string.user_info)
+
+        binding.etName.setText(vm.user.name)
         binding.etEmail.setText(vm.firebaseUser.email)
 
         binding.btUpdate.setOnClickListener {

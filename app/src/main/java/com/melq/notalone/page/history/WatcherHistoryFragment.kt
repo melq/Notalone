@@ -43,6 +43,8 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentWatcherHistoryBinding.bind(view)
 
+        requireActivity().title = "${vm.user.name} の履歴"
+
         val historyList = vm.user.pushHistory
         adapter = MyAdapter(historyList, requireContext())
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {

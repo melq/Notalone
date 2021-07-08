@@ -13,12 +13,9 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8sp"
-            android:paddingStart="12dp"
-            android:background="@color/primary"
+            android:gravity="center"
             android:textSize="32sp"
-            android:textColor="@color/white"
-            android:elevation="8dp" />
+            android:textColor="@color/light_gray" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"

@@ -23,7 +23,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHistoryBinding.bind(view)
 
-        binding.tvTitle.text = "${vm.user.name} の履歴"
+        requireActivity().title = "${vm.user.name} の履歴"
 
         val historyList = vm.user.pushHistory
         adapter = MyAdapter(historyList, requireContext())
