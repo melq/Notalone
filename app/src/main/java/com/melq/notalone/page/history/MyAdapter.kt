@@ -15,6 +15,7 @@ class MyAdapter(private val historyList: MutableList<Map<String, Any>>, private 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val box: View = view.findViewById(R.id.box)
         val tvPushedTime: TextView = view.findViewById(R.id.tv_pushed_time)
+        val tvComment: TextView = view.findViewById(R.id.tv_comment)
         val tvHoursAgo: TextView = view.findViewById(R.id.tv_hours_ago)
     }
 
@@ -37,6 +38,8 @@ class MyAdapter(private val historyList: MutableList<Map<String, Any>>, private 
                         "${calendar.get(Calendar.MINUTE)}:" +
                         "${calendar.get(Calendar.SECOND)}"
             tvPushedTime.text = pushedTimeStr
+
+            tvComment.text = comment
 
             val now = Calendar.getInstance().apply { time = Date() }
             val diffTime = now.timeInMillis - calendar.timeInMillis
