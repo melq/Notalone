@@ -4,6 +4,17 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <EditText
+        android:id="@+id/et_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/bt_main"
+        android:layout_marginBottom="12dp"
+        android:layout_marginHorizontal="32dp"
+        android:hint="@string/can_put_comment"
+        android:autofillHints="@string/can_put_comment"
+        android:inputType="textShortMessage" />
+
     <FrameLayout
         android:id="@+id/bt_main"
         android:layout_width="275dp"
