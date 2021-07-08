@@ -1,16 +1,15 @@
-package com.melq.seizonkakuninbutton.page.splash
+package com.melq.notalone.page.splash
 
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.melq.seizonkakuninbutton.MainViewModel
-import com.melq.seizonkakuninbutton.R
-import com.melq.seizonkakuninbutton.databinding.FragmentSplashBinding
+import com.melq.notalone.MainViewModel
+import com.melq.notalone.R
+import com.melq.notalone.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment(R.layout.fragment_splash) {
     private val vm: MainViewModel by activityViewModels()

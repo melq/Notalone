@@ -10,7 +10,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.melq.seizonkakuninbutton"
+        applicationId "com.melq.notalone"
         minSdkVersion 26
         targetSdkVersion 29
         versionCode 1

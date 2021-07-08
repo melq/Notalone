@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "391069982250",
-    "project_id": "seizonkakunin-67959",
-    "storage_bucket": "seizonkakunin-67959.appspot.com"
+    "project_number": "999407546518",
+    "project_id": "notalone-52ef7",
+    "storage_bucket": "notalone-52ef7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:391069982250:android:d4ed7c74163423d884ad53",
+        "mobilesdk_app_id": "1:999407546518:android:6e30c40dd0e67e447292b7",
         "android_client_info": {
-          "package_name": "com.melq.seizonkakuninbutton"
+          "package_name": "com.melq.notalone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "391069982250-ejr6089k647df94d7ehjje8kq0qsol4b.apps.googleusercontent.com",
+          "client_id": "999407546518-p5g7sa5b8igkkg7bj33fv3hmoaltt1gi.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA_iuUJ0qMGmLJklz92GMLU0uK8CB8ocps"
+          "current_key": "AIzaSyD3eZl_lyslmgD828gTyA7TQdeyU2zHlAA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "391069982250-ejr6089k647df94d7ehjje8kq0qsol4b.apps.googleusercontent.com",
+              "client_id": "999407546518-p5g7sa5b8igkkg7bj33fv3hmoaltt1gi.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

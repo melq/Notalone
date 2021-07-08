@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">SeizonKakuninButton</string>
-    <string name="app_title">生存確認ボタン</string>
+    <string name="app_name">Notalone</string>
+    <string name="app_title">のたろん</string>
     <string name="splash">splash</string>
     <string name="login">login</string>
     <string name="main">main</string>

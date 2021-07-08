@@ -1,4 +1,4 @@
-package com.melq.seizonkakuninbutton.page.history
+package com.melq.notalone.page.history
 
 import android.os.Bundle
 import android.view.View
@@ -7,11 +7,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.Timestamp
-import com.melq.seizonkakuninbutton.MainViewModel
-import com.melq.seizonkakuninbutton.R
-import com.melq.seizonkakuninbutton.databinding.FragmentHistoryBinding
-import java.util.*
+import com.melq.notalone.MainViewModel
+import com.melq.notalone.R
+import com.melq.notalone.databinding.FragmentHistoryBinding
 
 class HistoryFragment : Fragment(R.layout.fragment_history) {
     private val vm: MainViewModel by activityViewModels()

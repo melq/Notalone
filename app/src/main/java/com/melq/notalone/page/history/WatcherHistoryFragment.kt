@@ -1,4 +1,4 @@
-package com.melq.seizonkakuninbutton.page.history
+package com.melq.notalone.page.history
 
 import android.os.Bundle
 import android.util.Log
@@ -11,10 +11,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.melq.seizonkakuninbutton.MainViewModel
-import com.melq.seizonkakuninbutton.R
-import com.melq.seizonkakuninbutton.databinding.FragmentWatcherHistoryBinding
-import com.melq.seizonkakuninbutton.notification.WatcherNotificationReceiver
+import com.melq.notalone.MainViewModel
+import com.melq.notalone.R
+import com.melq.notalone.databinding.FragmentWatcherHistoryBinding
+import com.melq.notalone.notification.WatcherNotificationReceiver
 
 class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
     private val vm: MainViewModel by activityViewModels()

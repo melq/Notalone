@@ -1,8 +1,6 @@
-package com.melq.seizonkakuninbutton
+package com.melq.notalone
 
 import android.util.Log
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.contentValuesOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,10 +9,9 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.melq.seizonkakuninbutton.model.user.User
-import com.melq.seizonkakuninbutton.model.user.UserRepository
+import com.melq.notalone.model.user.User
+import com.melq.notalone.model.user.UserRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

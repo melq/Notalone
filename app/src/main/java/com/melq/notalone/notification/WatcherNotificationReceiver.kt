@@ -1,4 +1,4 @@
-package com.melq.seizonkakuninbutton.notification
+package com.melq.notalone.notification
 
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -7,13 +7,12 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
 import com.google.firebase.Timestamp
-import com.melq.seizonkakuninbutton.MainActivity
-import com.melq.seizonkakuninbutton.R
+import com.melq.notalone.MainActivity
+import com.melq.notalone.R
 import java.util.*
 
 class WatcherNotificationReceiver : BroadcastReceiver() {

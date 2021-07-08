@@ -1,4 +1,4 @@
-package com.melq.seizonkakuninbutton.model.user
+package com.melq.notalone.model.user
 
 import android.util.Log
 import com.google.firebase.Timestamp

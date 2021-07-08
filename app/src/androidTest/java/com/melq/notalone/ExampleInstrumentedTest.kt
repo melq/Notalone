@@ -1,4 +1,4 @@
-package com.melq.seizonkakuninbutton
+package com.melq.notalone
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

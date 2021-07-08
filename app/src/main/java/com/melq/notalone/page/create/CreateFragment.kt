@@ -1,4 +1,4 @@
-package com.melq.seizonkakuninbutton.page.create
+package com.melq.notalone.page.create
 
 import android.content.Context
 import android.os.Bundle
@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.melq.seizonkakuninbutton.MainViewModel
-import com.melq.seizonkakuninbutton.R
-import com.melq.seizonkakuninbutton.databinding.FragmentCreateBinding
+import com.melq.notalone.MainViewModel
+import com.melq.notalone.R
+import com.melq.notalone.databinding.FragmentCreateBinding
 
 class CreateFragment: Fragment(R.layout.fragment_create) {
     private val vm: MainViewModel by activityViewModels()

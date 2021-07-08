@@ -1,4 +1,4 @@
-package com.melq.seizonkakuninbutton
+package com.melq.notalone
 
 import android.content.Context
 import android.os.Bundle
@@ -11,12 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.melq.seizonkakuninbutton.databinding.FragmentMainBinding
-import com.melq.seizonkakuninbutton.notification.NotificationReceiver
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.melq.notalone.databinding.FragmentMainBinding
+import com.melq.notalone.notification.NotificationReceiver
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val vm: MainViewModel by activityViewModels()

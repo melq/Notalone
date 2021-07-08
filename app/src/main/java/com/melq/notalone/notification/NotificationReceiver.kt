@@ -1,4 +1,4 @@
-package com.melq.seizonkakuninbutton.notification
+package com.melq.notalone.notification
 
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -10,8 +10,8 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.getSystemService
-import com.melq.seizonkakuninbutton.MainActivity
-import com.melq.seizonkakuninbutton.R
+import com.melq.notalone.MainActivity
+import com.melq.notalone.R
 import java.util.*
 
 class NotificationReceiver : BroadcastReceiver() {

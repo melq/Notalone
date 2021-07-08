@@ -1,4 +1,4 @@
-package com.melq.seizonkakuninbutton
+package com.melq.notalone
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.melq.seizonkakuninbutton.page.history
+package com.melq.notalone.page.history
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
-import com.melq.seizonkakuninbutton.R
+import com.melq.notalone.R
 import java.util.*
 
 class MyAdapter(private val historyList: MutableList<Timestamp>, private val context: Context) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {

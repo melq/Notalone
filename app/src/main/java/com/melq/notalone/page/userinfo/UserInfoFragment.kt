@@ -1,4 +1,4 @@
-package com.melq.seizonkakuninbutton.page.userinfo
+package com.melq.notalone.page.userinfo
 
 import android.content.Context
 import android.os.Bundle
@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.melq.seizonkakuninbutton.MainViewModel
-import com.melq.seizonkakuninbutton.R
-import com.melq.seizonkakuninbutton.databinding.FragmentUserInfoBinding
+import com.melq.notalone.MainViewModel
+import com.melq.notalone.R
+import com.melq.notalone.databinding.FragmentUserInfoBinding
 
 class UserInfoFragment : Fragment(R.layout.fragment_user_info) {
     private val vm: MainViewModel by activityViewModels()
