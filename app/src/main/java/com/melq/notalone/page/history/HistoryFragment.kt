@@ -1,6 +1,7 @@
 package com.melq.notalone.page.history
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
@@ -25,15 +26,17 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
 
         requireActivity().title = "${vm.user.name} の履歴"
 
-//        val historyList = vm.user.pushHistory
-//        adapter = MyAdapter(historyList, requireContext())
-//        val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
-//            setDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.divider)!!)
-//        }
-//        binding.recyclerView.also {
-//            it.layoutManager = LinearLayoutManager(context)
-//            it.adapter = adapter
-//            it.addItemDecoration(dividerItemDecoration)
-//        }
+        Log.d("HISTORY", "${vm.user.pushHistory}")
+
+        val historyList = vm.user.pushHistory
+        adapter = MyAdapter(historyList, requireContext())
+        val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
+            setDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.divider)!!)
+        }
+        binding.recyclerView.also {
+            it.layoutManager = LinearLayoutManager(context)
+            it.adapter = adapter
+            it.addItemDecoration(dividerItemDecoration)
+        }
     }
 }

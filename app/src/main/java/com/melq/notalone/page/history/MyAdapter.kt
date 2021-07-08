@@ -10,7 +10,7 @@ import com.google.firebase.Timestamp
 import com.melq.notalone.R
 import java.util.*
 
-class MyAdapter(private val historyList: MutableList<Timestamp>, private val context: Context) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+class MyAdapter(private val historyList: MutableList<Map<String, Any>>, private val context: Context) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val box: View = view.findViewById(R.id.box)
@@ -25,10 +25,12 @@ class MyAdapter(private val historyList: MutableList<Timestamp>, private val con
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val historyData = historyList[historyList.size - 1 - position]
+        val timestamp = historyData["timestamp"] as Timestamp
+        val comment = historyData["comment"] as String
 
         holder.run {
             val calendar = Calendar.getInstance()
-            calendar.time = historyData.toDate()
+            calendar.time = timestamp.toDate()
             val pushedTimeStr = "${calendar.get(Calendar.MONTH) + 1}月" +
                         "${calendar.get(Calendar.DATE)}日 " +
                         "${calendar.get(Calendar.HOUR_OF_DAY)}:" +
