@@ -79,6 +79,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             vm.done.observe(viewLifecycleOwner) {
                 if (it == true) {
                     Snackbar.make(view, R.string.button_pushed, Snackbar.LENGTH_SHORT).show()
+                    binding.etComment.setText("")
                     vm.done.value = false
                 }
             }
