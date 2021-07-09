@@ -74,16 +74,14 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_push -> {
-                    Log.d("WATCHER", "push clicked${menuItem.order}")
+                    findNavController().navigate(R.id.action_watcherHistoryFragment_to_mainFragment)
                     return@setNavigationItemSelectedListener true
                 }
                 addId -> {
-                    Log.d("WATCHER", "add clicked")
                     return@setNavigationItemSelectedListener true
                 }
                 else -> {
                     val index = menuItem.order
-                    Log.d("WATCHER", "${checkList[index]["name"]} clicked")
                     vm.watchUser = User(checkList[index]["id"]!!, "", "", mutableListOf())
                     findNavController().navigate(R.id.action_watcherHistoryFragment_to_mainFragment)
                     findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)

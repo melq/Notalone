@@ -102,7 +102,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_push -> {
-                    Log.d("MAIN_FRAGMENT", "push clicked${menuItem.order}")
+                    Log.d("MAIN_FRAGMENT", "push clicked")
                     return@setNavigationItemSelectedListener true
                 }
                 addId -> {
