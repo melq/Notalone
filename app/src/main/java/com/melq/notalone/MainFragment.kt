@@ -111,7 +111,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 else -> {
                     val index = menuItem.order
                     Log.d("MAIN_FRAGMENT", "${checkList[index]["name"]} clicked")
-                    vm.getWatchUserData(checkList[index]["id"])
+//                    vm.getWatchUserData(checkList[index]["id"])
                 }
             }
             return@setNavigationItemSelectedListener true
@@ -142,7 +142,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             if (vm.isUserLoaded.value == true) {
                 if (vm.auth.currentUser != null) {
                     findNavController().navigate(R.id.action_mainFragment_to_userInfoFragment)
-                    findNavController().navigate(R.id.action_userInfoFragment_to_mainFragment)
                 } else
                     findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
             }

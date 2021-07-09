@@ -111,6 +111,7 @@ class MainViewModel : ViewModel() {
                     repository.createUser(
                         auth.currentUser!!.uid,
                         User(
+                            auth.currentUser!!.uid,
                             email,
                             name,
                             mutableListOf()
