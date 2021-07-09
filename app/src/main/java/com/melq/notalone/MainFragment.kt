@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.melq.notalone.databinding.FragmentMainBinding
+import com.melq.notalone.model.user.User
 import com.melq.notalone.notification.NotificationReceiver
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -111,7 +112,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 else -> {
                     val index = menuItem.order
                     Log.d("MAIN_FRAGMENT", "${checkList[index]["name"]} clicked")
-//                    vm.getWatchUserData(checkList[index]["id"])
+                    vm.watchUser = User(checkList[index]["id"]!!, "", "", mutableListOf())
+                    findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
                 }
             }
             return@setNavigationItemSelectedListener true

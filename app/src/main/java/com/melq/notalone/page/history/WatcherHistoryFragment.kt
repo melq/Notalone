@@ -36,16 +36,15 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
     override fun onStart() {
         super.onStart()
 
-        if (!vm.isWatcher) findNavController().popBackStack()
-        vm.getUserData()
+//        if (!vm.isWatcher) findNavController().popBackStack()
+        vm.getWatchUserData(vm.watchUser.id)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentWatcherHistoryBinding.bind(view)
 
-
-        val historyList = vm.user.pushHistory
+        val historyList = vm.watchUser.pushHistory
         adapter = MyAdapter(historyList, requireContext())
         val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
             setDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.divider)!!)
@@ -56,12 +55,12 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
             it.addItemDecoration(dividerItemDecoration)
         }
 
-        vm.isUserLoaded.observe(viewLifecycleOwner) {
+        vm.isWatchUserLoaded.observe(viewLifecycleOwner) {
             if (it == true) {
-                requireActivity().title = "${vm.user.name} の履歴"
+                requireActivity().title = "${vm.watchUser.name} の履歴"
                 historyList.run {
                     clear()
-                    addAll(vm.user.pushHistory)
+                    addAll(vm.watchUser.pushHistory)
 
                     val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
                     notificationManagerCompat.cancel(R.string.remind_to_watcher)
@@ -73,12 +72,12 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                 adapter.notifyDataSetChanged()
                 binding.swipeRefreshLayout.isRefreshing = false
 
-                vm.isUserLoaded.value = false
+                vm.isWatchUserLoaded.value = false
             }
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            vm.getUserData()
+            vm.getWatchUserData(vm.watchUser.id)
         }
 
         binding.btUserInfo.setOnClickListener {
