@@ -5,28 +5,4 @@
         android:icon="@drawable/ic_baseline_account_circle_vector"
         android:title="@string/push_button" />
 
-    <item android:title="@string/check_history">
-        <menu>
-            <item
-                android:id="@+id/menu_jiro"
-                android:icon="@drawable/ic_baseline_perm_identity_vector"
-                android:title="jiro" />
-
-            <item
-                android:id="@+id/menu_saburo"
-                android:icon="@drawable/ic_baseline_perm_identity_vector"
-                android:title="saburo" />
-
-            <item
-                android:id="@+id/menu_shiro"
-                android:icon="@drawable/ic_baseline_perm_identity_vector"
-                android:title="shiro" />
-
-            <item
-                android:id="@+id/menu_add"
-                android:icon="@drawable/ic_baseline_add_vector"
-                android:title="@string/add_user" />
-        </menu>
-    </item>
-
 </menu>
