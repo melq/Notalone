@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
@@ -72,7 +73,21 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
 
-        requireActivity().setTitle(R.string.app_title)
+        val toggle = ActionBarDrawerToggle(
+            requireActivity(),
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.app_name,
+            R.string.app_title
+        )
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        binding.navigationView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.menu_check -> Log.d("MAIN_FRAGMENT", "item1 clicked")
+            }
+            return@setNavigationItemSelectedListener true
+        }
 
         binding.btMain.setOnClickListener {
             vm.buttonPushed(binding.etComment.text.toString())
