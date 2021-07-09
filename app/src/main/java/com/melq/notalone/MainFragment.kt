@@ -111,6 +111,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 else -> {
                     val index = menuItem.order
                     Log.d("MAIN_FRAGMENT", "${checkList[index]["name"]} clicked")
+                    vm.getWatchUserData(checkList[index]["id"])
                 }
             }
             return@setNavigationItemSelectedListener true

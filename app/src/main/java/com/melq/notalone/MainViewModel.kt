@@ -144,7 +144,8 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun getWatchUserData(id: String) {
+    fun getWatchUserData(id: String?) {
+        if (id == null) return
         repository.getUserData(id) {
             watchUser = it
             isWatchUserLoaded.value = true
