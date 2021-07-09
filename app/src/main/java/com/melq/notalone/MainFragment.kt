@@ -84,7 +84,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         toggle.syncState()
         binding.navigationView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.menu_check -> Log.d("MAIN_FRAGMENT", "item1 clicked")
+                R.id.menu_push -> Log.d("MAIN_FRAGMENT", "push clicked")
+                R.id.menu_jiro -> Log.d("MAIN_FRAGMENT", "jiro clicked")
+                R.id.menu_saburo -> Log.d("MAIN_FRAGMENT", "saburo clicked")
+                R.id.menu_shiro -> Log.d("MAIN_FRAGMENT", "shiro clicked")
+                R.id.menu_add -> Log.d("MAIN_FRAGMENT", "add clicked")
             }
             return@setNavigationItemSelectedListener true
         }

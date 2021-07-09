@@ -44,7 +44,6 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentWatcherHistoryBinding.bind(view)
 
-        requireActivity().title = "${vm.user.name} の履歴"
 
         val historyList = vm.user.pushHistory
         adapter = MyAdapter(historyList, requireContext())
@@ -58,8 +57,8 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         }
 
         vm.isUserLoaded.observe(viewLifecycleOwner) {
-            Log.d("WATCH_HISTORY", "vm:isUserLoaded: $it")
             if (it == true) {
+                requireActivity().title = "${vm.user.name} の履歴"
                 historyList.run {
                     clear()
                     addAll(vm.user.pushHistory)
