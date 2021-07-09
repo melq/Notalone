@@ -89,21 +89,29 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             mapOf("name" to "saburo", "id" to "wJghyQbPx5abVwLdQ9GiZ4VSF9z1"),
             mapOf("name" to "shiro", "id" to "jEBri4JlJmftZLzCTZ4rA50eZfB2")
         )
-        val sub = binding.navigationView.menu.addSubMenu(R.string.check_history)
+        val sub = binding.navigationView.menu.addSubMenu(Menu.NONE, Menu.NONE, 10, R.string.check_history)
         for (i in checkList.indices) {
             val item = sub.add(Menu.NONE, i + 1, i, "${checkList[i]["name"]}")
             item.setIcon(R.drawable.ic_baseline_perm_identity_vector)
         }
-        val item = sub.add(Menu.NONE, checkList.size + 1, checkList.size + 1, R.string.add_user)
+        val addId = 100
+        val item = sub.add(Menu.NONE, addId, checkList.size + 1, R.string.add_user)
         item.setIcon(R.drawable.ic_baseline_add_vector)
 
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.menu_push -> Log.d("MAIN_FRAGMENT", "push clicked")
-                1 -> Log.d("MAIN_FRAGMENT", "jiro clicked")
-                2 -> Log.d("MAIN_FRAGMENT", "saburo clicked")
-                3 -> Log.d("MAIN_FRAGMENT", "shiro clicked")
-                4 -> Log.d("MAIN_FRAGMENT", "add clicked")
+                R.id.menu_push -> {
+                    Log.d("MAIN_FRAGMENT", "push clicked${menuItem.order}")
+                    return@setNavigationItemSelectedListener true
+                }
+                addId -> {
+                    Log.d("MAIN_FRAGMENT", "add clicked")
+                    return@setNavigationItemSelectedListener true
+                }
+                else -> {
+                    val index = menuItem.order
+                    Log.d("MAIN_FRAGMENT", "${checkList[index]["name"]} clicked")
+                }
             }
             return@setNavigationItemSelectedListener true
         }

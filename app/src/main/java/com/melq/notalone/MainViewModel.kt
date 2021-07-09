@@ -23,7 +23,7 @@ class MainViewModel : ViewModel() {
     val auth: FirebaseAuth = Firebase.auth
     val firebaseUser: FirebaseUser get() = auth.currentUser!!
 
-    var user: User = User("", "", mutableListOf())
+    var user: User = User()
     var isUserLoaded: MutableLiveData<Boolean> = MutableLiveData(false)
     var eMessage: MutableLiveData<Int> = MutableLiveData(0)
     var done: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -31,6 +31,9 @@ class MainViewModel : ViewModel() {
     val canPush: MutableLiveData<Boolean> = MutableLiveData(true)
     val countDown: MutableLiveData<Int> = MutableLiveData(0)
     var isWatcher = false
+
+    var watchUser = User()
+    var isWatchUserLoaded: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun buttonPushed(comment: String) {
         if (canPush.value == false) return
@@ -138,6 +141,13 @@ class MainViewModel : ViewModel() {
         repository.getUserData(firebaseUser.uid) {
             user = it
             isUserLoaded.value = true
+        }
+    }
+
+    fun getWatchUserData(id: String) {
+        repository.getUserData(id) {
+            watchUser = it
+            isWatchUserLoaded.value = true
         }
     }
 
