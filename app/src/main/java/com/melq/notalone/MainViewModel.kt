@@ -30,7 +30,6 @@ class MainViewModel : ViewModel() {
 
     val canPush: MutableLiveData<Boolean> = MutableLiveData(true)
     val countDown: MutableLiveData<Int> = MutableLiveData(0)
-    var isWatcher = false
 
     var watchUser = User()
     var isWatchUserLoaded: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -57,7 +56,7 @@ class MainViewModel : ViewModel() {
         done.value = true
     }
 
-    fun loginPushed(email: String, password: String, isWatcher: Boolean) {
+    fun loginPushed(email: String, password: String) {
         val tag = "LOGIN_PUSHED"
         if (email.isBlank() || password.isBlank()) {
             eMessage.value = R.string.enter_info
@@ -68,7 +67,6 @@ class MainViewModel : ViewModel() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d(tag, "signInWithEmail: success")
-                    this.isWatcher = isWatcher
                     done.value = true
                 } else {
                     when (task.exception) {
@@ -93,7 +91,7 @@ class MainViewModel : ViewModel() {
             }
     }
 
-    fun createPushed(name: String, email: String, password: String, isWatcher: Boolean) {
+    fun createPushed(name: String, email: String, password: String) {
         val tag = "CREATE_PUSHED"
         if (name.isBlank() || email.isBlank() || password.isBlank()) {
             eMessage.value = R.string.enter_info
@@ -116,7 +114,6 @@ class MainViewModel : ViewModel() {
                             name,
                             mutableListOf()
                         )) {
-                        this.isWatcher = isWatcher
                         done.value = true
                     }
                 } else {
@@ -166,7 +163,6 @@ class MainViewModel : ViewModel() {
 
     fun logoutClicked() {
         auth.signOut()
-        isWatcher = false
         done.value = true
     }
 }

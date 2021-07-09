@@ -1,6 +1,5 @@
 package com.melq.notalone
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -34,15 +33,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onStart() {
         super.onStart()
 
-        Log.d("MAIN_FRAGMENT", "isWatcher: ${vm.isWatcher}, " +
-                "pref.isWatcher: ${activity?.getSharedPreferences("preference_root", Context.MODE_PRIVATE)?.getBoolean("isWatcher", false)}")
-
         val user = vm.auth.currentUser // FEATURE: ここの処理はActivityの初期化処理内に移したい
         if (user != null) {
             Log.d("MAIN_FRAGMENT", "email: ${user.email}, uid: ${user.uid}")
-
-            if (vm.isWatcher) findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
-            else vm.getUserData()
+            vm.getUserData()
         } else {
             Log.d("MAIN_FRAGMENT", "no userdata")
             findNavController().navigate(R.id.action_mainFragment_to_loginFragment)

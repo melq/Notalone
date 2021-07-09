@@ -145,28 +145,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:gravity="center_vertical">
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/sw_watcher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/watcher_mode"
-                    android:textColor="@color/dark_gray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="@string/_watcher_description" />
-
-            </LinearLayout>
-
             <Button
                 android:id="@+id/bt_logout"
                 android:layout_width="match_parent"

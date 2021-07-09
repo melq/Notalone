@@ -35,7 +35,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         binding.btLogin.setOnClickListener {
             binding.run {
-                vm.loginPushed(etEmail.text.toString(), etPassword.text.toString(), cbWatcher.isChecked)
+                vm.loginPushed(etEmail.text.toString(), etPassword.text.toString())
                 vm.eMessage.observe(viewLifecycleOwner) {
                     if (it != 0) {
                         Snackbar.make(view, it, Snackbar.LENGTH_SHORT).show()
@@ -47,8 +47,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         Snackbar.make(view,
                             "${vm.auth.currentUser!!.email}${getString(R.string.success_login)}",
                             Snackbar.LENGTH_LONG).show()
-                        val pref = activity?.getSharedPreferences("preference_root", Context.MODE_PRIVATE)
-                        pref?.edit { putBoolean("isWatcher", vm.isWatcher) }
                         findNavController().popBackStack()
                         vm.done.value = false
                     }

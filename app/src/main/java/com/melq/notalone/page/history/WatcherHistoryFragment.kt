@@ -39,7 +39,6 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
     override fun onStart() {
         super.onStart()
 
-//        if (!vm.isWatcher) findNavController().popBackStack()
         vm.getWatchUserData(vm.watchUser.id)
     }
 

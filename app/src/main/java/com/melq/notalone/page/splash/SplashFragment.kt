@@ -1,6 +1,5 @@
 package com.melq.notalone.page.splash
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -27,9 +26,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     override fun onStart() {
         super.onStart()
-
-        val pref = activity?.getSharedPreferences("preference_root", Context.MODE_PRIVATE)
-        vm.isWatcher = pref?.getBoolean("isWatcher", false) == true
 
         val runnable = Runnable {
             findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
