@@ -46,6 +46,8 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentWatcherHistoryBinding.bind(view)
 
+        binding.toolbar.title = "${vm.watchUser.name}の履歴"
+
         val toggle = ActionBarDrawerToggle(
             requireActivity(),
             binding.drawerLayout,

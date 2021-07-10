@@ -109,7 +109,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 else -> {
                     val index = menuItem.order
                     Log.d("MAIN_FRAGMENT", "${checkList[index]["name"]} clicked")
-                    vm.watchUser = User(checkList[index]["id"]!!, "", "", mutableListOf(), mutableListOf())
+                    vm.watchUser = User(checkList[index]["id"]!!, "", checkList[index]["name"]!!, mutableListOf(), mutableListOf())
                     findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
                 }
             }
