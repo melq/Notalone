@@ -112,6 +112,7 @@ class MainViewModel : ViewModel() {
                             auth.currentUser!!.uid,
                             email,
                             name,
+                            mutableListOf(),
                             mutableListOf()
                         )) {
                         done.value = true

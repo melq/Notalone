@@ -1,7 +1,6 @@
 package com.melq.notalone.model.user
 
 import android.util.Log
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -81,7 +80,8 @@ class UserRepository {
         val id = this["id"] as String
         val email = this["email"] as String
         val name = this["name"] as String
-        val history = this["pushHistory"] as MutableList<Map<String, Any>>
-        return User(id, email, name, history)
+        val pushHistory = this["pushHistory"] as MutableList<Map<String, Any>>
+        val watchList = this["watchList"] as MutableList<Map<String, String>>
+        return User(id, email, name, pushHistory, watchList)
     }
 }

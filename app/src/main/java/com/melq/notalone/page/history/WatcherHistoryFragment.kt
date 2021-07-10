@@ -81,7 +81,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                 }
                 else -> {
                     val index = menuItem.order
-                    vm.watchUser = User(checkList[index]["id"]!!, "", "", mutableListOf())
+                    vm.watchUser = User(checkList[index]["id"]!!, "", "", mutableListOf(), mutableListOf())
                     findNavController().navigate(R.id.action_watcherHistoryFragment_to_mainFragment)
                     findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
                 }

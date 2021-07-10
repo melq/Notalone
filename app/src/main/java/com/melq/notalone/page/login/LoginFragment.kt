@@ -1,10 +1,8 @@
 package com.melq.notalone.page.login
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
