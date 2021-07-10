@@ -164,6 +164,8 @@ class MainViewModel : ViewModel() {
 
     fun logoutClicked() {
         auth.signOut()
+        user = User()
+        isUserLoaded.value = false
         done.value = true
     }
 }

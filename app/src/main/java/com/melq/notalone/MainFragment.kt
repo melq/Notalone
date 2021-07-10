@@ -79,20 +79,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        val addId = 100
+        val addId = 100; val groupId = 200
         var checkList: MutableList<Map<String, String>> = mutableListOf()
-        var flg = false
         vm.isUserLoaded.observe(viewLifecycleOwner) {
-            if (it == true && !flg) {
+            if (it == true && binding.navigationView.menu.findItem(addId) == null) {
                 checkList = vm.user.watchList
-                val sub = binding.navigationView.menu.addSubMenu(Menu.NONE, Menu.NONE, 10, R.string.check_history)
+                val sub = binding.navigationView.menu.addSubMenu(groupId, Menu.NONE, Menu.NONE, R.string.check_history)
                 for (i in checkList.indices) {
                     val item = sub.add(Menu.NONE, i + 1, i, "${checkList[i]["name"]}")
                     item.setIcon(R.drawable.ic_baseline_perm_identity_vector)
                 }
                 val item = sub.add(Menu.NONE, addId, checkList.size + 1, R.string.add_user)
                 item.setIcon(R.drawable.ic_baseline_add_vector)
-                flg = true
             }
         }
 
@@ -140,6 +138,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.btUserInfo.setOnClickListener{
             if (vm.isUserLoaded.value == true) {
                 if (vm.auth.currentUser != null) {
+                    binding.navigationView.menu.removeGroup(groupId) // ほんとはこれもVMのログアウト時の処理と一緒にしたい
                     findNavController().navigate(R.id.action_mainFragment_to_userInfoFragment)
                 } else
                     findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
