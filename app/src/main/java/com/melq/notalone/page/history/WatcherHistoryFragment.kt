@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
 import com.melq.notalone.MainViewModel
 import com.melq.notalone.R
@@ -116,6 +117,12 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                 binding.swipeRefreshLayout.isRefreshing = false
 
                 vm.isWatchUserLoaded.value = false
+            }
+        }
+        vm.eMessage.observe(viewLifecycleOwner) {
+            if (it != 0) {
+                Snackbar.make(view, it, Snackbar.LENGTH_SHORT).show()
+                vm.eMessage.value = 0
             }
         }
 

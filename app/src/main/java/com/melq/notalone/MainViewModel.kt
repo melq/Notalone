@@ -138,16 +138,22 @@ class MainViewModel : ViewModel() {
 
     fun getUserData() {
         repository.getUserData(firebaseUser.uid) {
-            user = it
-            isUserLoaded.value = true
+            if (it != null) {
+                user = it
+                isUserLoaded.value = true
+            }
         }
     }
 
     fun getWatchUserData(id: String?) {
         if (id == null) return
         repository.getUserData(id) {
-            watchUser = it
-            isWatchUserLoaded.value = true
+            if (it != null) {
+                watchUser = it
+                isWatchUserLoaded.value = true
+            } else {
+                eMessage.value = R.string.user_data_not_exist
+            }
         }
     }
 

@@ -27,7 +27,7 @@ class CreateFragment: Fragment(R.layout.fragment_create) {
                 vm.createPushed(etName.text.toString(), etEmail.text.toString(), etPassword.text.toString())
                 vm.eMessage.observe(viewLifecycleOwner) {
                     if (it != 0) {
-                        Snackbar.make(binding.layout, it, Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(view, it, Snackbar.LENGTH_SHORT).show()
                         vm.eMessage.value = 0
                     }
                 }
