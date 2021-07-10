@@ -36,7 +36,7 @@ class UserRepository {
     }
 
     fun getUserData(id: String, onSuccess: (User) -> Unit): User { // 取得待機がよくわからんので、関数を渡している
-        val tag = "GET_USER_DATA"
+        val tag = "GET_USER_DATA: $id"
         var user = User()
         val doc = db.collection(collectionName).document(id)
         doc.get()

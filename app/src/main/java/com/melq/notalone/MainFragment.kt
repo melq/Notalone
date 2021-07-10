@@ -79,19 +79,22 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        val checkList = mutableListOf( // 仮データリスト
-            mapOf("name" to "jiro", "id" to "5aUA9tnrVTgj2hvIve2GsnKTB2n2"),
-            mapOf("name" to "saburo", "id" to "wJghyQbPx5abVwLdQ9GiZ4VSF9z1"),
-            mapOf("name" to "shiro", "id" to "jEBri4JlJmftZLzCTZ4rA50eZfB2")
-        )
-        val sub = binding.navigationView.menu.addSubMenu(Menu.NONE, Menu.NONE, 10, R.string.check_history)
-        for (i in checkList.indices) {
-            val item = sub.add(Menu.NONE, i + 1, i, "${checkList[i]["name"]}")
-            item.setIcon(R.drawable.ic_baseline_perm_identity_vector)
-        }
         val addId = 100
-        val item = sub.add(Menu.NONE, addId, checkList.size + 1, R.string.add_user)
-        item.setIcon(R.drawable.ic_baseline_add_vector)
+        var checkList: MutableList<Map<String, String>> = mutableListOf()
+        var flg = false
+        vm.isUserLoaded.observe(viewLifecycleOwner) {
+            if (it == true && !flg) {
+                checkList = vm.user.watchList
+                val sub = binding.navigationView.menu.addSubMenu(Menu.NONE, Menu.NONE, 10, R.string.check_history)
+                for (i in checkList.indices) {
+                    val item = sub.add(Menu.NONE, i + 1, i, "${checkList[i]["name"]}")
+                    item.setIcon(R.drawable.ic_baseline_perm_identity_vector)
+                }
+                val item = sub.add(Menu.NONE, addId, checkList.size + 1, R.string.add_user)
+                item.setIcon(R.drawable.ic_baseline_add_vector)
+                flg = true
+            }
+        }
 
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {

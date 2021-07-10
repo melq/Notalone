@@ -56,11 +56,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        val checkList = mutableListOf( // 仮データリスト
-            mapOf("name" to "jiro", "id" to "5aUA9tnrVTgj2hvIve2GsnKTB2n2"),
-            mapOf("name" to "saburo", "id" to "wJghyQbPx5abVwLdQ9GiZ4VSF9z1"),
-            mapOf("name" to "shiro", "id" to "jEBri4JlJmftZLzCTZ4rA50eZfB2")
-        )
+        val checkList = vm.user.watchList
         val sub = binding.navigationView.menu.addSubMenu(Menu.NONE, Menu.NONE, 10, R.string.check_history)
         for (i in checkList.indices) {
             val item = sub.add(Menu.NONE, i + 1, i, "${checkList[i]["name"]}")
