@@ -23,7 +23,7 @@
     <string name="err_occured">エラーが発生しました</string>
     <string name="err_not_exist">登録されていないメールアドレスです</string>
     <string name="err_incorrect">メールアドレスまたはパスワードが正しくありません</string>
-    <string name="user_data_not_exist">"ユーザーデータがありません"</string>
+    <string name="user_data_not_exist">"指定されたアカウントはありません"</string>
     <string name="logout">LOGOUT</string>
     <string name="user_info">ユーザー情報</string>
     <string name="set_yourself">ご自分で設定したもの</string>

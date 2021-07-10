@@ -80,7 +80,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                 }
                 else -> {
                     val index = menuItem.order
-                    vm.watchUser = User(checkList[index]["id"]!!, "", "", mutableListOf(), mutableListOf())
+                    vm.watchUser = User(checkList[index]["id"]!!, "", checkList[index]["name"]!!, mutableListOf(), mutableListOf())
                     findNavController().navigate(R.id.action_watcherHistoryFragment_to_mainFragment)
                     findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
                 }
@@ -101,7 +101,6 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
 
         vm.isWatchUserLoaded.observe(viewLifecycleOwner) {
             if (it == true) {
-                requireActivity().title = "${vm.watchUser.name} の履歴"
                 historyList.run {
                     clear()
                     addAll(vm.watchUser.pushHistory)
@@ -115,13 +114,13 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                 }
                 adapter.notifyDataSetChanged()
                 binding.swipeRefreshLayout.isRefreshing = false
-
                 vm.isWatchUserLoaded.value = false
             }
         }
         vm.eMessage.observe(viewLifecycleOwner) {
             if (it != 0) {
                 Snackbar.make(view, it, Snackbar.LENGTH_SHORT).show()
+                binding.swipeRefreshLayout.isRefreshing = false
                 vm.eMessage.value = 0
             }
         }
