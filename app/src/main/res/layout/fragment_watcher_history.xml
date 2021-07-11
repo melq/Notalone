@@ -54,15 +54,15 @@
                 </LinearLayout>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/bt_user_info"
+                    android:id="@+id/bt_delete_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     android:backgroundTint="@color/secondary"
                     android:layout_margin="16dp"
-                    android:src="@drawable/ic_baseline_perm_identity_vector"
-                    android:contentDescription="@string/account_image" />
+                    android:src="@drawable/ic_outline_cancel_vector"
+                    android:contentDescription="@string/cancel" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

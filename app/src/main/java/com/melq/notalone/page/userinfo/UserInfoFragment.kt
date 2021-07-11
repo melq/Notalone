@@ -19,7 +19,7 @@ class UserInfoFragment : Fragment(R.layout.fragment_user_info) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentUserInfoBinding.bind(view)
-        
+
         binding.etName.setText(vm.user.name)
         binding.etEmail.setText(vm.firebaseUser.email)
 

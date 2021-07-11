@@ -174,4 +174,8 @@ class MainViewModel : ViewModel() {
         isUserLoaded.value = false
         done.value = true
     }
+
+    fun deleteUserButtonClicked() {
+
+    }
 }

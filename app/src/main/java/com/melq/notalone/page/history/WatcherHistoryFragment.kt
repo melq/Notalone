@@ -129,8 +129,14 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
             vm.getWatchUserData(vm.watchUser.id)
         }
 
-        binding.btUserInfo.setOnClickListener {
-            findNavController().navigate(R.id.action_watcherHistoryFragment_to_userInfoFragment)
+        binding.btDeleteUser.setOnClickListener {
+            vm.deleteUserButtonClicked()
+            vm.done.observe(viewLifecycleOwner) {
+                if (it == true) {
+                    findNavController().navigate(R.id.action_watcherHistoryFragment_to_mainFragment)
+                    vm.done.value = false
+                }
+            }
         }
     }
 }
