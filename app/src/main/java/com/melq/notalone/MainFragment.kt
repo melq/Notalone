@@ -82,7 +82,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         val addId = 100; val groupId = 200
         var checkList: MutableList<Map<String, String>> = mutableListOf()
         vm.isUserLoaded.observe(viewLifecycleOwner) {
-            if (it == true && binding.navigationView.menu.findItem(addId) == null) {
+            if (it == true) {
+                binding.navigationView.menu.removeGroup(groupId) // 遷移先で削除や垢変えしたときに、戻ってくると表示が残ってしまうため
                 checkList = vm.user.watchList
                 val sub = binding.navigationView.menu.addSubMenu(groupId, Menu.NONE, Menu.NONE, R.string.check_history)
                 for (i in checkList.indices) {
@@ -138,7 +139,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.btUserInfo.setOnClickListener{
             if (vm.isUserLoaded.value == true) {
                 if (vm.auth.currentUser != null) {
-                    binding.navigationView.menu.removeGroup(groupId) // ほんとはこれもVMのログアウト時の処理と一緒にしたい
                     findNavController().navigate(R.id.action_mainFragment_to_userInfoFragment)
                 } else
                     findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
