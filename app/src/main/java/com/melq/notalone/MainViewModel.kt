@@ -176,6 +176,8 @@ class MainViewModel : ViewModel() {
     }
 
     fun deleteUserButtonClicked() {
-
+        repository.deleteWatchUser(firebaseUser.uid, watchUser.id, watchUser.name) {
+            done.value = true
+        }
     }
 }

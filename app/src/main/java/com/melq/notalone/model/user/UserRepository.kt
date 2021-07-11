@@ -76,6 +76,14 @@ class UserRepository {
             }
     }
 
+    fun deleteWatchUser(id: String, userId: String, name: String, onSuccess: () -> Unit) {
+        val tag = "DELETE_WATCH_USER"
+        val doc = db.collection(collectionName).document(id)
+        doc.update("watchList", FieldValue.arrayRemove(mapOf("name" to name, "id" to userId)))
+        Log.d(tag, "watch user deleted: $name,  $userId")
+        onSuccess()
+    }
+
     private fun Map<String, Any>.toUser(): User {
         val id = this["id"] as String
         val email = this["email"] as String
