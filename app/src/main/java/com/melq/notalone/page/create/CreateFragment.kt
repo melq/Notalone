@@ -20,8 +20,6 @@ class CreateFragment: Fragment(R.layout.fragment_create) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCreateBinding.bind(view)
 
-        requireActivity().setTitle(R.string.register)
-
         binding.btCreateAccount.setOnClickListener {
             binding.run {
                 vm.createPushed(etName.text.toString(), etEmail.text.toString(), etPassword.text.toString())
