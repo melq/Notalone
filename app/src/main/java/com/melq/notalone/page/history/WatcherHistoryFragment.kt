@@ -1,6 +1,6 @@
 package com.melq.notalone.page.history
 
-import android.content.DialogInterface
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -72,8 +73,10 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         item.setIcon(R.drawable.ic_baseline_add_vector)
 
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+            val pref = requireContext().getSharedPreferences("preference_root", Context.MODE_PRIVATE)
             when (menuItem.itemId) {
                 R.id.menu_push -> {
+                    pref.edit { putInt("lastFragment", -1) }
                     findNavController().navigate(R.id.action_watcherHistoryFragment_to_mainFragment)
                     return@setNavigationItemSelectedListener true
                 }
@@ -83,6 +86,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                 else -> {
                     val index = menuItem.order
                     vm.watchUser = User(checkList[index]["id"]!!, "", checkList[index]["name"]!!, mutableListOf(), mutableListOf())
+                    pref.edit { putInt("lastFragment", index) }
                     findNavController().navigate(R.id.action_watcherHistoryFragment_to_mainFragment)
                     findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
                 }

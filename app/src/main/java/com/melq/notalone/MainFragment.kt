@@ -1,5 +1,7 @@
 package com.melq.notalone
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -8,6 +10,7 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.melq.notalone.databinding.FragmentMainBinding
 import com.melq.notalone.model.user.User
 import com.melq.notalone.notification.NotificationReceiver
+import java.lang.IndexOutOfBoundsException
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val vm: MainViewModel by activityViewModels()
@@ -22,8 +26,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = _binding!!
 
+    private var lastFragment = 0
+    private lateinit var pref: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        pref = requireContext().getSharedPreferences("preference_root", Context.MODE_PRIVATE)
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             activity?.finish()
@@ -37,6 +46,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         if (user != null) {
             Log.d("MAIN_FRAGMENT", "email: ${user.email}, uid: ${user.uid}")
             vm.getUserData()
+            lastFragment = pref.getInt("lastFragment", -1)
+            pref.edit { putInt("lastFragment", -1) }
         } else {
             Log.d("MAIN_FRAGMENT", "no userdata")
             findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
@@ -81,8 +92,22 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         val addId = 100; val groupId = 200
         var checkList: MutableList<Map<String, String>> = mutableListOf()
-        vm.isUserLoaded.observe(viewLifecycleOwner) {
+        vm.isUserLoaded.observe(viewLifecycleOwner) { it ->
             if (it == true) {
+                if (lastFragment != -1) {
+                    try {
+                        vm.user.watchList[lastFragment].also { lastWatch ->
+                            vm.watchUser = User(lastWatch["id"]!!, "", lastWatch["name"]!!, mutableListOf(), mutableListOf())
+                            pref.edit { putInt("lastFragment", lastFragment) }
+                            findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
+                        }
+                    } catch (e: IndexOutOfBoundsException) {
+                        vm.watchUser = User("nothing", "", "", mutableListOf(), mutableListOf())
+                        pref.edit { putInt("lastFragment", -1) }
+                        findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
+                    }
+                }
+
                 binding.navigationView.menu.removeGroup(groupId) // 遷移先で削除や垢変えしたときに、戻ってくると表示が残ってしまうため
                 checkList = vm.user.watchList
                 val sub = binding.navigationView.menu.addSubMenu(groupId, Menu.NONE, Menu.NONE, R.string.check_history)
@@ -109,6 +134,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     val index = menuItem.order
                     Log.d("MAIN_FRAGMENT", "${checkList[index]["name"]} clicked")
                     vm.watchUser = User(checkList[index]["id"]!!, "", checkList[index]["name"]!!, mutableListOf(), mutableListOf())
+                    lastFragment = index
+                    pref.edit { putInt("lastFragment", lastFragment) }
                     findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
                 }
             }
