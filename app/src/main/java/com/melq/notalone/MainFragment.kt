@@ -92,7 +92,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         val addId = 100; val groupId = 200
         var checkList: MutableList<Map<String, String>> = mutableListOf()
-        vm.isUserLoaded.observe(viewLifecycleOwner) { it ->
+        vm.isUserLoaded.observe(viewLifecycleOwner) {
             if (it == true) {
                 if (lastFragment != -1) {
                     try {
@@ -155,7 +155,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             // 通知関連. context含むのでVMに渡せない
             val notificationManagerCompat = NotificationManagerCompat.from(requireContext())
             notificationManagerCompat.cancel(R.string.remind_to_pusher)
-            NotificationReceiver.setNotification(context)
+            NotificationReceiver.setNotification(requireContext())
         }
 
         binding.btHistory.setOnClickListener {

@@ -115,7 +115,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                     notificationManagerCompat.cancel(R.string.remind_to_watcher)
                     if (this.isNotEmpty()) {
                         val lastTime = last()["timestamp"] as Timestamp
-                        WatcherNotificationReceiver.setNotification(context, lastTime, 24)
+                        WatcherNotificationReceiver.setNotification(requireContext(), lastTime, 24)
                     }
                 }
                 adapter.notifyDataSetChanged()

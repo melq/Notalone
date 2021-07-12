@@ -17,7 +17,7 @@ import java.util.*
 
 class WatcherNotificationReceiver : BroadcastReceiver() {
     companion object {
-        fun setNotification(context: Context?, timestamp: Timestamp, dangerLine: Int) {
+        fun setNotification(context: Context, timestamp: Timestamp, dangerLine: Int) {
             val calendar = Calendar.getInstance().apply {
                 time = timestamp.toDate()
                 add(Calendar.HOUR, dangerLine)
@@ -36,13 +36,12 @@ class WatcherNotificationReceiver : BroadcastReceiver() {
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
 
-            val am: AlarmManager = context!!.getSystemService()!!
+            val am: AlarmManager = context.getSystemService()!!
             am.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
         }
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-
         when (val requestCode = intent!!.getIntExtra("RequestCode", 0)) {
             1 -> {
                 val intentToMainActivity =
@@ -83,7 +82,7 @@ class WatcherNotificationReceiver : BroadcastReceiver() {
                             notify(R.string.remind_to_watcher, builder)
                         }
 
-                setNotification(context, Timestamp.now(), 12)
+                setNotification(context, Timestamp.now(), 24)
             }
         }
     }
