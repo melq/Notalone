@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
+import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
@@ -128,6 +131,16 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
                 addId -> {
                     Log.d("MAIN_FRAGMENT", "add clicked")
+                    val inflater = requireActivity().layoutInflater
+                    val dialog = AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.add_account)
+                        .setView(inflater.inflate(R.layout.dialog_add_watch, null))
+                        .setPositiveButton(R.string.ok) { _, _ ->
+
+                        }
+                        .setNegativeButton(R.string.cancel) { _, _ -> }
+                        .create()
+                    dialog.show()
                     return@setNavigationItemSelectedListener true
                 }
                 else -> {

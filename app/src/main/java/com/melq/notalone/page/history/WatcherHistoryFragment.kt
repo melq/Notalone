@@ -2,7 +2,6 @@ package com.melq.notalone.page.history
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.View
 import androidx.activity.addCallback
@@ -136,21 +135,20 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         }
 
         binding.btDeleteUser.setOnClickListener {
-            val builder = AlertDialog.Builder(requireContext()).apply {
-                setMessage(R.string.ask_delete_user)
-                    .setPositiveButton(R.string.ok) { _, _ ->
-                        vm.deleteUserButtonClicked()
-                        vm.done.observe(viewLifecycleOwner) {
-                            if (it == true) {
-                                findNavController().navigate(R.id.action_watcherHistoryFragment_to_mainFragment)
-                                vm.done.value = false
-                            }
+            val dialog = AlertDialog.Builder(requireContext())
+                .setMessage(R.string.ask_delete_user)
+                .setPositiveButton(R.string.ok) { _, _ ->
+                    vm.deleteUserButtonClicked()
+                    vm.done.observe(viewLifecycleOwner) {
+                        if (it == true) {
+                            findNavController().navigate(R.id.action_watcherHistoryFragment_to_mainFragment)
+                            vm.done.value = false
                         }
                     }
-                    .setNegativeButton(R.string.cancel) { _, _ -> }
-                create()
-            }
-            builder.show()
+                }
+                .setNegativeButton(R.string.cancel) { _, _ -> }
+                .create()
+            dialog.show()
         }
     }
 }
