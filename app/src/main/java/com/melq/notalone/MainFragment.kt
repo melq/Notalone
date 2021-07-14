@@ -131,16 +131,23 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
                 addId -> {
                     Log.d("MAIN_FRAGMENT", "add clicked")
-                    val inflater = requireActivity().layoutInflater
+                    val dialogView = requireActivity().layoutInflater.inflate(R.layout.dialog_add_watch, null)
+                    val etAddEmail: EditText = dialogView.findViewById(R.id.et_add_email)
+                    val tvPutEmail: TextView = dialogView.findViewById(R.id.tv_put_email)
                     val dialog = AlertDialog.Builder(requireContext())
                         .setTitle(R.string.add_account)
-                        .setView(inflater.inflate(R.layout.dialog_add_watch, null))
-                        .setPositiveButton(R.string.ok) { _, _ ->
-
-                        }
+                        .setView(dialogView)
+                        .setPositiveButton(R.string.ok, null)
                         .setNegativeButton(R.string.cancel) { _, _ -> }
                         .create()
                     dialog.show()
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                        if (etAddEmail.text.isBlank()) tvPutEmail.visibility = View.VISIBLE
+                        else {
+                            
+                            dialog.cancel()
+                        }
+                    }
                     return@setNavigationItemSelectedListener true
                 }
                 else -> {
