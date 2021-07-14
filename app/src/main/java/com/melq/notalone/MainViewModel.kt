@@ -34,6 +34,8 @@ class MainViewModel : ViewModel() {
     var watchUser = User()
     var isWatchUserLoaded: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    val doneAdd: MutableLiveData<Boolean> = MutableLiveData(false)
+
     fun buttonPushed(comment: String) {
         if (canPush.value == false) return
 
@@ -179,5 +181,9 @@ class MainViewModel : ViewModel() {
         repository.deleteWatchUser(firebaseUser.uid, watchUser.id, watchUser.name) {
             done.value = true
         }
+    }
+
+    fun addUserButtonClicked() {
+        doneAdd.value = true
     }
 }

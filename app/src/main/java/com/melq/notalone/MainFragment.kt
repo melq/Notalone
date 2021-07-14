@@ -133,7 +133,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     Log.d("MAIN_FRAGMENT", "add clicked")
                     val dialogView = requireActivity().layoutInflater.inflate(R.layout.dialog_add_watch, null)
                     val etAddEmail: EditText = dialogView.findViewById(R.id.et_add_email)
-                    val tvPutEmail: TextView = dialogView.findViewById(R.id.tv_put_email)
+                    val tvEMessage: TextView = dialogView.findViewById(R.id.tv_e_message)
                     val dialog = AlertDialog.Builder(requireContext())
                         .setTitle(R.string.add_account)
                         .setView(dialogView)
@@ -142,10 +142,33 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         .create()
                     dialog.show()
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                        if (etAddEmail.text.isBlank()) tvPutEmail.visibility = View.VISIBLE
+                        if (etAddEmail.text.isBlank()) {
+                            tvEMessage.visibility = View.VISIBLE
+                            tvEMessage.setText(R.string.enter_info)
+                        }
                         else {
-                            
-                            dialog.cancel()
+                            vm.addUserButtonClicked()
+                            vm.doneAdd.observe(viewLifecycleOwner) {
+                                if (it == true) {
+                                    dialog.cancel()
+
+                                    val index = checkList.size - 1
+                                    vm.watchUser = User(checkList[index]["id"]!!, "", checkList[index]["name"]!!, mutableListOf(), mutableListOf())
+                                    lastFragment = index
+                                    pref.edit { putInt("lastFragment", lastFragment) }
+                                    findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
+
+                                    Snackbar.make(view, R.string.added_user, Snackbar.LENGTH_SHORT).show()
+                                    vm.doneAdd.value = false
+                                }
+                            }
+                            vm.eMessage.observe(viewLifecycleOwner) {
+                                if (it != 0) {
+                                    tvEMessage.visibility = View.VISIBLE
+                                    tvEMessage.setText(it)
+                                    vm.eMessage.value = 0
+                                }
+                            }
                         }
                     }
                     return@setNavigationItemSelectedListener true
