@@ -178,7 +178,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                         if (it == true) {
                             pref.edit { putInt("lastFragment", -1) }
                             findNavController().navigate(R.id.action_watcherHistoryFragment_to_mainFragment)
-//                            Snackbar.make(view, R.string.user_deleted, Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(view, R.string.user_deleted, Snackbar.LENGTH_SHORT).show()
                             vm.done.value = false
                         }
                     }
