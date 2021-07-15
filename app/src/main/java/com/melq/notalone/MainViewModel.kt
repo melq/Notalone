@@ -190,7 +190,11 @@ class MainViewModel : ViewModel() {
         }
         repository.getUserWithEmail(email) {
             if (it != null) {
-//                watchUser = it
+                val addedWatchUser = mapOf("name" to it.name, "id" to it.id)
+                watchUser = it
+                user.watchList.add(addedWatchUser)
+                repository.addWatchUser(firebaseUser.uid, addedWatchUser)
+                doneAdd.value = true
             } else {
                 eMessage.value = R.string.user_data_not_exist
             }

@@ -107,6 +107,14 @@ class UserRepository {
         return user // 待ち方わからんので、 User() が返ってる
     }
 
+    fun addWatchUser(id: String, addedWatchUser: Map<String, String>) {
+        val tag = "ADD_WATCH_USER"
+        val doc = db.collection(collectionName).document(id)
+
+        doc.update("watchList", FieldValue.arrayUnion(addedWatchUser))
+        Log.d(tag, "Add history: $addedWatchUser")
+    }
+
     private fun Map<String, Any>.toUser(): User {
         val id = this["id"] as String
         val email = this["email"] as String
