@@ -184,9 +184,15 @@ class MainViewModel : ViewModel() {
     }
 
     fun addUserButtonClicked(email: String) {
+        if (email.isBlank()) {
+            eMessage.value = R.string.enter_info
+            return
+        }
         repository.getUserWithEmail(email) {
             if (it != null) {
 //                watchUser = it
+            } else {
+                eMessage.value = R.string.user_data_not_exist
             }
         }
     }

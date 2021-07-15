@@ -142,32 +142,26 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         .create()
                     dialog.show()
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                        if (etAddEmail.text.isBlank()) {
-                            tvEMessage.visibility = View.VISIBLE
-                            tvEMessage.setText(R.string.enter_info)
-                        }
-                        else {
-                            vm.addUserButtonClicked(etAddEmail.text.toString())
-                            vm.doneAdd.observe(viewLifecycleOwner) {
-                                if (it == true) {
-                                    dialog.cancel()
+                        vm.addUserButtonClicked(etAddEmail.text.toString())
+                        vm.doneAdd.observe(viewLifecycleOwner) {
+                            if (it == true) {
+                                dialog.cancel()
 
-                                    val index = checkList.size - 1
-                                    vm.watchUser = User(checkList[index]["id"]!!, "", checkList[index]["name"]!!, mutableListOf(), mutableListOf())
-                                    lastFragment = index
-                                    pref.edit { putInt("lastFragment", lastFragment) }
-                                    findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
+                                val index = checkList.size - 1
+                                vm.watchUser = User(checkList[index]["id"]!!, "", checkList[index]["name"]!!, mutableListOf(), mutableListOf())
+                                lastFragment = index
+                                pref.edit { putInt("lastFragment", lastFragment) }
+                                findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
 
-                                    Snackbar.make(view, R.string.added_user, Snackbar.LENGTH_SHORT).show()
-                                    vm.doneAdd.value = false
-                                }
+                                Snackbar.make(view, R.string.added_user, Snackbar.LENGTH_SHORT).show()
+                                vm.doneAdd.value = false
                             }
-                            vm.eMessage.observe(viewLifecycleOwner) {
-                                if (it != 0) {
-                                    tvEMessage.visibility = View.VISIBLE
-                                    tvEMessage.setText(it)
-                                    vm.eMessage.value = 0
-                                }
+                        }
+                        vm.eMessage.observe(viewLifecycleOwner) { eMessage ->
+                            if (eMessage != 0) {
+                                tvEMessage.visibility = View.VISIBLE
+                                tvEMessage.setText(eMessage)
+                                vm.eMessage.value = 0
                             }
                         }
                     }
