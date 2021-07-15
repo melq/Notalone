@@ -147,7 +147,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                             tvEMessage.setText(R.string.enter_info)
                         }
                         else {
-                            vm.addUserButtonClicked()
+                            vm.addUserButtonClicked(etAddEmail.text.toString())
                             vm.doneAdd.observe(viewLifecycleOwner) {
                                 if (it == true) {
                                     dialog.cancel()

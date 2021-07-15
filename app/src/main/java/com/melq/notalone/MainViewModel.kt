@@ -147,7 +147,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun getWatchUserData(id: String?) {
+    fun getWatchUsersData(id: String?) {
         if (id == null) return
         repository.getUserData(id) {
             if (it != null) {
@@ -183,7 +183,11 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun addUserButtonClicked() {
-        doneAdd.value = true
+    fun addUserButtonClicked(email: String) {
+        repository.getUserWithEmail(email) {
+            if (it != null) {
+//                watchUser = it
+            }
+        }
     }
 }

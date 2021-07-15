@@ -84,6 +84,29 @@ class UserRepository {
         onSuccess()
     }
 
+    fun getUserWithEmail(email: String, onSuccess: (User?) -> Unit): User? {
+        val tag = "GET_USER_DATA_WITH_EMAIL: $email"
+        var user: User? = null
+        db.collection(collectionName)
+            .whereEqualTo("email", email)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    if (document != null) {
+                        Log.d(tag, "DocumentSnapshot exists. data: ${document.data}")
+                        user = document.data.toUser()
+                    } else {
+                        Log.d(tag, "no such document")
+                    }
+                }
+                onSuccess(user)
+            }
+            .addOnFailureListener { e ->
+                Log.d(tag, "get failed with", e)
+            }
+        return user // 待ち方わからんので、 User() が返ってる
+    }
+
     private fun Map<String, Any>.toUser(): User {
         val id = this["id"] as String
         val email = this["email"] as String

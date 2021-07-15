@@ -42,7 +42,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
     override fun onStart() {
         super.onStart()
 
-        vm.getWatchUserData(vm.watchUser.id)
+        vm.getWatchUsersData(vm.watchUser.id)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -131,7 +131,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            vm.getWatchUserData(vm.watchUser.id)
+            vm.getWatchUsersData(vm.watchUser.id)
         }
 
         binding.btDeleteUser.setOnClickListener {
