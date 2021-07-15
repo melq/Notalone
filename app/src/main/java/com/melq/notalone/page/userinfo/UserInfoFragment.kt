@@ -1,9 +1,7 @@
 package com.melq.notalone.page.userinfo
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -21,8 +19,6 @@ class UserInfoFragment : Fragment(R.layout.fragment_user_info) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentUserInfoBinding.bind(view)
-
-        requireActivity().setTitle(R.string.user_info)
 
         binding.etName.setText(vm.user.name)
         binding.etEmail.setText(vm.firebaseUser.email)
@@ -52,13 +48,6 @@ class UserInfoFragment : Fragment(R.layout.fragment_user_info) {
                 }
                 .setNegativeButton(R.string.cancel) { _, _ -> }
                 .show()
-        }
-
-        binding.swWatcher.isChecked = vm.isWatcher
-        binding.swWatcher.setOnCheckedChangeListener { _, isChecked ->
-            vm.isWatcher = isChecked
-            val pref = activity?.getSharedPreferences("preference_root", Context.MODE_PRIVATE)
-            pref?.edit { putBoolean("isWatcher", vm.isWatcher) }
         }
 
         // FEATURE: パスワード変更機能を付ける

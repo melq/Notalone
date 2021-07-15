@@ -3,178 +3,152 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/secondary">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/secondary" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/white"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:layout_marginHorizontal="16dp">
+            android:background="@color/primary"
+            app:title="@string/user_info"
+            app:titleTextColor="@color/white" />
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="50dp"
-            android:paddingHorizontal="16dp"
-            android:background="@color/white"
-            android:elevation="4dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/name" />
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="16dp">
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:padding="4dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_account_circle_vector"
-                    android:contentDescription="@string/account_image" />
-
-                <EditText
-                    android:id="@+id/et_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:autofillHints="@string/name"
-                    android:hint="@string/name"
-                    android:inputType="text" />
-
-                <Button
-                    android:id="@+id/bt_update"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple"
-                    app:backgroundTint="@null"
-                    android:textColor="@color/primary"
-                    android:text="@string/update" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="@string/user_id" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:padding="4dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_perm_identity_vector"
-                    android:contentDescription="@string/account_image" />
-
-                <EditText
-                    android:id="@+id/et_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
-                    android:autofillHints="@string/user_id"
-                    android:hint="@string/user_id"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/light_gray"
-                    android:focusable="false" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="@string/password" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:padding="4dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_outline_lock_vector"
-                    android:contentDescription="@string/key_image" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
-                    android:autofillHints="@string/password"
-                    android:hint="@string/password"
-                    android:inputType="text"
-                    android:textColor="@color/dark_gray"
-                    android:focusable="false"
-                    android:text="@string/set_yourself" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:gravity="center_vertical">
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/sw_watcher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/watcher_mode"
-                    android:textColor="@color/dark_gray" />
+                android:paddingVertical="50dp"
+                android:paddingHorizontal="16dp"
+                android:background="@color/white"
+                android:elevation="4dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="@string/_watcher_description" />
+                    android:text="@string/name" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:padding="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_baseline_account_circle_vector"
+                        android:contentDescription="@string/account_image" />
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:autofillHints="@string/name"
+                        android:hint="@string/name"
+                        android:inputType="text" />
+
+                    <Button
+                        android:id="@+id/bt_update"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ripple"
+                        app:backgroundTint="@null"
+                        android:textColor="@color/primary"
+                        android:text="@string/update" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/user_id" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:padding="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_baseline_perm_identity_vector"
+                        android:contentDescription="@string/account_image" />
+
+                    <EditText
+                        android:id="@+id/et_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="8dp"
+                        android:autofillHints="@string/user_id"
+                        android:hint="@string/user_id"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/light_gray"
+                        android:focusable="false" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/password" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:padding="4dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_outline_lock_vector"
+                        android:contentDescription="@string/key_image" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="8dp"
+                        android:autofillHints="@string/password"
+                        android:hint="@string/password"
+                        android:inputType="text"
+                        android:textColor="@color/dark_gray"
+                        android:focusable="false"
+                        android:text="@string/set_yourself" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/bt_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/ripple"
+                    app:backgroundTint="@color/primary"
+                    android:text="@string/logout" />
 
             </LinearLayout>
-
-            <Button
-                android:id="@+id/bt_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:background="@drawable/ripple"
-                app:backgroundTint="@color/primary"
-                android:text="@string/logout" />
 
         </LinearLayout>
 

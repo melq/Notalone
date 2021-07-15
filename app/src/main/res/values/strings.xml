@@ -23,6 +23,7 @@
     <string name="err_occured">エラーが発生しました</string>
     <string name="err_not_exist">登録されていないメールアドレスです</string>
     <string name="err_incorrect">メールアドレスまたはパスワードが正しくありません</string>
+    <string name="user_data_not_exist">"指定されたアカウントはありません"</string>
     <string name="logout">LOGOUT</string>
     <string name="user_info">ユーザー情報</string>
     <string name="set_yourself">ご自分で設定したもの</string>
@@ -39,10 +40,18 @@
     <string name="_watcher_description">みまもりモードではボタンを押した履歴のみ表示されます</string>
     <string name="remind_to_pusher">ボタンを押すよう促す通知</string>
     <string name="notification_text">ボタンを押す時間です！</string>
-    <string name="push_button">ここで押しちゃう！</string>
+    <string name="push_button_here">ここで押しちゃう！</string>
     <string name="button_pushed">ボタンを押しました！</string>
     <string name="remind_to_watcher">履歴を見るよう促す通知</string>
     <string name="lets_watch">何時にボタンが押されたか見てみましょう</string>
     <string name="can_put_comment">コメントを付けられます！</string>
     <string name="icon">icon</string>
+    <string name="push_button">ボタンを押す！</string>
+    <string name="check_history">安否確認をする</string>
+    <string name="add_user">ユーザーを追加する</string>
+    <string name="ask_delete_user">このユーザーをみまもるのをやめますか？</string>
+    <string name="email">email</string>
+    <string name="add_account">アカウントを追加</string>
+    <string name="user_added">ユーザーを追加しました</string>
+    <string name="user_deleted">ユーザーを削除しました</string>
 </resources>

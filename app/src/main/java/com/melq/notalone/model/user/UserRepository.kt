@@ -1,7 +1,6 @@
 package com.melq.notalone.model.user
 
 import android.util.Log
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -36,15 +35,15 @@ class UserRepository {
             }
     }
 
-    fun getUserData(id: String, onSuccess: (User) -> Unit): User { // 取得待機がよくわからんので、関数を渡している
-        val tag = "GET_USER_DATA"
-        var user = User()
+    fun getUserData(id: String, onSuccess: (User?) -> Unit): User? { // 取得待機がよくわからんので、関数を渡している
+        val tag = "GET_USER_DATA: $id"
+        var user: User? = null
         val doc = db.collection(collectionName).document(id)
         doc.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
                     Log.d(tag, "DocumentSnapshot exists. data: ${document.data}")
-                    user = document.data!!.toUser()
+                    user = document.data?.toUser()
                 } else {
                     Log.d(tag, "no such document")
                 }
@@ -77,10 +76,51 @@ class UserRepository {
             }
     }
 
+    fun deleteWatchUser(id: String, userId: String, name: String, onSuccess: () -> Unit) {
+        val tag = "DELETE_WATCH_USER"
+        val doc = db.collection(collectionName).document(id)
+        doc.update("watchList", FieldValue.arrayRemove(mapOf("name" to name, "id" to userId)))
+        Log.d(tag, "watch user deleted: $name,  $userId")
+        onSuccess()
+    }
+
+    fun getUserWithEmail(email: String, onSuccess: (User?) -> Unit): User? {
+        val tag = "GET_USER_DATA_WITH_EMAIL: $email"
+        var user: User? = null
+        db.collection(collectionName)
+            .whereEqualTo("email", email)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    if (document != null) {
+                        Log.d(tag, "DocumentSnapshot exists. data: ${document.data}")
+                        user = document.data.toUser()
+                    } else {
+                        Log.d(tag, "no such document")
+                    }
+                }
+                onSuccess(user)
+            }
+            .addOnFailureListener { e ->
+                Log.d(tag, "get failed with", e)
+            }
+        return user // 待ち方わからんので、 User() が返ってる
+    }
+
+    fun addWatchUser(id: String, addedWatchUser: Map<String, String>) {
+        val tag = "ADD_WATCH_USER"
+        val doc = db.collection(collectionName).document(id)
+
+        doc.update("watchList", FieldValue.arrayUnion(addedWatchUser))
+        Log.d(tag, "Add history: $addedWatchUser")
+    }
+
     private fun Map<String, Any>.toUser(): User {
+        val id = this["id"] as String
         val email = this["email"] as String
         val name = this["name"] as String
-        val history = this["pushHistory"] as MutableList<Map<String, Any>>
-        return User(email, name, history)
+        val pushHistory = this["pushHistory"] as MutableList<Map<String, Any>>
+        val watchList = this["watchList"] as MutableList<Map<String, String>>
+        return User(id, email, name, pushHistory, watchList)
     }
 }

@@ -1,9 +1,7 @@
 package com.melq.notalone.page.create
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -22,14 +20,12 @@ class CreateFragment: Fragment(R.layout.fragment_create) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentCreateBinding.bind(view)
 
-        requireActivity().setTitle(R.string.register)
-
         binding.btCreateAccount.setOnClickListener {
             binding.run {
-                vm.createPushed(etName.text.toString(), etEmail.text.toString(), etPassword.text.toString(), cbWatcher.isChecked)
+                vm.createPushed(etName.text.toString(), etEmail.text.toString(), etPassword.text.toString())
                 vm.eMessage.observe(viewLifecycleOwner) {
                     if (it != 0) {
-                        Snackbar.make(binding.layout, it, Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(view, it, Snackbar.LENGTH_SHORT).show()
                         vm.eMessage.value = 0
                     }
                 }
@@ -37,8 +33,6 @@ class CreateFragment: Fragment(R.layout.fragment_create) {
                     if (it == true) {Snackbar.make(view,
                         "${vm.auth.currentUser!!.email}${getString(R.string.success_login)}",
                         Snackbar.LENGTH_LONG).show()
-                        val pref = activity?.getSharedPreferences("preference_root", Context.MODE_PRIVATE)
-                        pref?.edit { putBoolean("isWatcher", vm.isWatcher) }
                         findNavController().navigate(R.id.action_createFragment_to_mainFragment)
                         vm.done.value = false
                     }

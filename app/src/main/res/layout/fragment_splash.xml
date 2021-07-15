@@ -20,7 +20,7 @@
         <ImageView
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:background="@drawable/icon_rect"
+            android:background="@drawable/icon_round"
             android:contentDescription="@string/icon" />
 
         <TextView

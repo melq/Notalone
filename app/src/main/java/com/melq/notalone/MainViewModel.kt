@@ -23,14 +23,18 @@ class MainViewModel : ViewModel() {
     val auth: FirebaseAuth = Firebase.auth
     val firebaseUser: FirebaseUser get() = auth.currentUser!!
 
-    var user: User = User("", "", mutableListOf())
+    var user: User = User()
     var isUserLoaded: MutableLiveData<Boolean> = MutableLiveData(false)
     var eMessage: MutableLiveData<Int> = MutableLiveData(0)
     var done: MutableLiveData<Boolean> = MutableLiveData(false)
 
     val canPush: MutableLiveData<Boolean> = MutableLiveData(true)
     val countDown: MutableLiveData<Int> = MutableLiveData(0)
-    var isWatcher = false
+
+    var watchUser = User()
+    var isWatchUserLoaded: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    val doneAdd: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun buttonPushed(comment: String) {
         if (canPush.value == false) return
@@ -54,7 +58,7 @@ class MainViewModel : ViewModel() {
         done.value = true
     }
 
-    fun loginPushed(email: String, password: String, isWatcher: Boolean) {
+    fun loginPushed(email: String, password: String) {
         val tag = "LOGIN_PUSHED"
         if (email.isBlank() || password.isBlank()) {
             eMessage.value = R.string.enter_info
@@ -65,7 +69,6 @@ class MainViewModel : ViewModel() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d(tag, "signInWithEmail: success")
-                    this.isWatcher = isWatcher
                     done.value = true
                 } else {
                     when (task.exception) {
@@ -90,7 +93,7 @@ class MainViewModel : ViewModel() {
             }
     }
 
-    fun createPushed(name: String, email: String, password: String, isWatcher: Boolean) {
+    fun createPushed(name: String, email: String, password: String) {
         val tag = "CREATE_PUSHED"
         if (name.isBlank() || email.isBlank() || password.isBlank()) {
             eMessage.value = R.string.enter_info
@@ -108,11 +111,12 @@ class MainViewModel : ViewModel() {
                     repository.createUser(
                         auth.currentUser!!.uid,
                         User(
+                            auth.currentUser!!.uid,
                             email,
                             name,
+                            mutableListOf(),
                             mutableListOf()
                         )) {
-                        this.isWatcher = isWatcher
                         done.value = true
                     }
                 } else {
@@ -136,8 +140,22 @@ class MainViewModel : ViewModel() {
 
     fun getUserData() {
         repository.getUserData(firebaseUser.uid) {
-            user = it
-            isUserLoaded.value = true
+            if (it != null) {
+                user = it
+                isUserLoaded.value = true
+            }
+        }
+    }
+
+    fun getWatchUsersData(id: String?) {
+        if (id == null) return
+        repository.getUserData(id) {
+            if (it != null) {
+                watchUser = it
+                isWatchUserLoaded.value = true
+            } else {
+                eMessage.value = R.string.user_data_not_exist
+            }
         }
     }
 
@@ -154,7 +172,32 @@ class MainViewModel : ViewModel() {
 
     fun logoutClicked() {
         auth.signOut()
-        isWatcher = false
+        user = User()
+        isUserLoaded.value = false
         done.value = true
+    }
+
+    fun deleteUserButtonClicked() {
+        repository.deleteWatchUser(firebaseUser.uid, watchUser.id, watchUser.name) {
+            done.value = true
+        }
+    }
+
+    fun addUserButtonClicked(email: String) {
+        if (email.isBlank()) {
+            eMessage.value = R.string.enter_info
+            return
+        }
+        repository.getUserWithEmail(email) {
+            if (it != null) {
+                val addedWatchUser = mapOf("name" to it.name, "id" to it.id)
+                watchUser = it
+                user.watchList.add(addedWatchUser)
+                repository.addWatchUser(firebaseUser.uid, addedWatchUser)
+                doneAdd.value = true
+            } else {
+                eMessage.value = R.string.user_data_not_exist
+            }
+        }
     }
 }

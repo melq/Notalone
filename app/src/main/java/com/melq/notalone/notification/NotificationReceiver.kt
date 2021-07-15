@@ -18,7 +18,7 @@ class NotificationReceiver : BroadcastReceiver() {
     companion object {
         private const val warningLine = 12
 
-        fun setNotification(context: Context?) { // context含むからViewModelに渡せない、どこに置くのが正解？
+        fun setNotification(context: Context) { // context含むからViewModelに渡せない、どこに置くのが正解？
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = System.currentTimeMillis()
             calendar.add(Calendar.HOUR, warningLine)
@@ -31,7 +31,7 @@ class NotificationReceiver : BroadcastReceiver() {
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
 
-            val am: AlarmManager = context!!.getSystemService()!!
+            val am: AlarmManager = context.getSystemService()!!
             am.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
         }
     }
