@@ -29,7 +29,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = _binding!!
 
-    private var lastFragment = 0
+    private var lastFragment = -1
     private lateinit var pref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -126,11 +126,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_push -> {
-                    Log.d("MAIN_FRAGMENT", "push clicked")
                     return@setNavigationItemSelectedListener true
                 }
                 addId -> {
-                    Log.d("MAIN_FRAGMENT", "add clicked")
                     val dialogView = requireActivity().layoutInflater.inflate(R.layout.dialog_add_watch, null)
                     val etAddEmail: EditText = dialogView.findViewById(R.id.et_add_email)
                     val tvEMessage: TextView = dialogView.findViewById(R.id.tv_e_message)
@@ -153,7 +151,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                                 pref.edit { putInt("lastFragment", lastFragment) }
                                 findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
 
-                                Snackbar.make(view, R.string.added_user, Snackbar.LENGTH_SHORT).show()
+                                Snackbar.make(view, R.string.user_added, Snackbar.LENGTH_SHORT).show()
                                 vm.doneAdd.value = false
                             }
                         }
@@ -169,7 +167,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
                 else -> {
                     val index = menuItem.order
-                    Log.d("MAIN_FRAGMENT", "${checkList[index]["name"]} clicked")
                     vm.watchUser = User(checkList[index]["id"]!!, "", checkList[index]["name"]!!, mutableListOf(), mutableListOf())
                     lastFragment = index
                     pref.edit { putInt("lastFragment", lastFragment) }

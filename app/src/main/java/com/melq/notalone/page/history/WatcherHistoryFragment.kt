@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -71,8 +73,8 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
         val item = sub.add(Menu.NONE, addId, checkList.size + 1, R.string.add_user)
         item.setIcon(R.drawable.ic_baseline_add_vector)
 
+        val pref = requireContext().getSharedPreferences("preference_root", Context.MODE_PRIVATE)
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
-            val pref = requireContext().getSharedPreferences("preference_root", Context.MODE_PRIVATE)
             when (menuItem.itemId) {
                 R.id.menu_push -> {
                     pref.edit { putInt("lastFragment", -1) }
@@ -80,6 +82,39 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                     return@setNavigationItemSelectedListener true
                 }
                 addId -> {
+                    val dialogView = requireActivity().layoutInflater.inflate(R.layout.dialog_add_watch, null)
+                    val etAddEmail: EditText = dialogView.findViewById(R.id.et_add_email)
+                    val tvEMessage: TextView = dialogView.findViewById(R.id.tv_e_message)
+                    val dialog = AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.add_account)
+                        .setView(dialogView)
+                        .setPositiveButton(R.string.ok, null)
+                        .setNegativeButton(R.string.cancel) { _, _ -> }
+                        .create()
+                    dialog.show()
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                        vm.addUserButtonClicked(etAddEmail.text.toString())
+                        vm.doneAdd.observe(viewLifecycleOwner) {
+                            if (it == true) {
+                                dialog.cancel()
+                                val index = checkList.size - 1
+                                vm.watchUser = User(checkList[index]["id"]!!, "", checkList[index]["name"]!!, mutableListOf(), mutableListOf())
+                                pref.edit { putInt("lastFragment", index) }
+                                findNavController().navigate(R.id.action_watcherHistoryFragment_to_mainFragment)
+                                findNavController().navigate(R.id.action_mainFragment_to_watcherHistoryFragment)
+
+                                Snackbar.make(view, R.string.user_added, Snackbar.LENGTH_SHORT).show()
+                                vm.doneAdd.value = false
+                            }
+                        }
+                        vm.eMessage.observe(viewLifecycleOwner) { eMessage ->
+                            if (eMessage != 0) {
+                                tvEMessage.visibility = View.VISIBLE
+                                tvEMessage.setText(eMessage)
+                                vm.eMessage.value = 0
+                            }
+                        }
+                    }
                     return@setNavigationItemSelectedListener true
                 }
                 else -> {
@@ -141,7 +176,9 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                     vm.deleteUserButtonClicked()
                     vm.done.observe(viewLifecycleOwner) {
                         if (it == true) {
+                            pref.edit { putInt("lastFragment", -1) }
                             findNavController().navigate(R.id.action_watcherHistoryFragment_to_mainFragment)
+//                            Snackbar.make(view, R.string.user_deleted, Snackbar.LENGTH_SHORT).show()
                             vm.done.value = false
                         }
                     }
