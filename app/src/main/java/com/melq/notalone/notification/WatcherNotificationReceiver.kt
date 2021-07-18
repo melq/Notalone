@@ -37,7 +37,7 @@ class WatcherNotificationReceiver : BroadcastReceiver() {
             )
 
             val am: AlarmManager = context.getSystemService()!!
-            am.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+            am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
         }
     }
 
