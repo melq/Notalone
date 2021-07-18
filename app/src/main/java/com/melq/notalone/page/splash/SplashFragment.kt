@@ -28,6 +28,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         super.onStart()
 
         val runnable = Runnable {
+            handler.removeCallbacksAndMessages(null)
             findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
         }
         handler.postDelayed(
