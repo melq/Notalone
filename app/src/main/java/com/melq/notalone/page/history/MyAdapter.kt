@@ -33,10 +33,10 @@ class MyAdapter(private val historyList: MutableList<Map<String, Any>>, private 
             val calendar = Calendar.getInstance()
             calendar.time = timestamp.toDate()
             val pushedTimeStr = "${calendar.get(Calendar.MONTH) + 1}月" +
-                        "${calendar.get(Calendar.DATE)}日 " +
-                        "${calendar.get(Calendar.HOUR_OF_DAY)}:" +
-                        "${calendar.get(Calendar.MINUTE)}:" +
-                        "${calendar.get(Calendar.SECOND)}"
+                    "${"%02d".format(calendar.get(Calendar.DATE))}日" +
+                    "${"%02d".format(calendar.get(Calendar.HOUR_OF_DAY))}:" +
+                    "${"%02d".format(calendar.get(Calendar.MINUTE))}:" +
+                    "%02d".format(calendar.get(Calendar.SECOND))
             tvPushedTime.text = pushedTimeStr
 
             tvComment.text = comment
