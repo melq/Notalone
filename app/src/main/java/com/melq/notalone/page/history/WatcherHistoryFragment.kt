@@ -84,7 +84,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                 addId -> {
                     val dialogView = requireActivity().layoutInflater.inflate(R.layout.dialog_add_watch, null)
                     val etAddEmail: EditText = dialogView.findViewById(R.id.et_add_email)
-//                    val etAddName: EditText = dialogView.findViewById(R.id.et_add_name)
+                    val etAddName: EditText = dialogView.findViewById(R.id.et_add_name)
                     val tvEMessage: TextView = dialogView.findViewById(R.id.tv_e_message)
                     val dialog = AlertDialog.Builder(requireContext())
                         .setTitle(R.string.add_account)
@@ -94,7 +94,7 @@ class WatcherHistoryFragment : Fragment(R.layout.fragment_watcher_history) {
                         .create()
                     dialog.show()
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                        vm.addUserButtonClicked(etAddEmail.text.toString())
+                        vm.addUserButtonClicked(etAddEmail.text.toString(), etAddName.text.toString())
                         vm.doneAdd.observe(viewLifecycleOwner) {
                             if (it == true) {
                                 dialog.cancel()

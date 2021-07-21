@@ -183,14 +183,14 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun addUserButtonClicked(email: String) {
-        if (email.isBlank()) {
+    fun addUserButtonClicked(email: String, name: String) {
+        if (email.isBlank() || name.isBlank()) {
             eMessage.value = R.string.enter_info
             return
         }
         repository.getUserWithEmail(email) {
             if (it != null) {
-                val addedWatchUser = mapOf("name" to it.name, "id" to it.id)
+                val addedWatchUser = mapOf("name" to name, "id" to it.id)
                 watchUser = it
                 user.watchList.add(addedWatchUser)
                 repository.addWatchUser(firebaseUser.uid, addedWatchUser)
